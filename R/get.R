@@ -3,6 +3,7 @@ ip <- "http://143.198.79.143:5000"
 
 #' Get catalog of data available
 #' @import httr
+#' @export
 #' @return \code{dataframe}
 
 get_catalog <- function() {
@@ -26,6 +27,7 @@ get_catalog <- function() {
 #' @param dataset \code{string}
 #' @param version \code{string}
 #' @import glue
+#' @export
 #' @return \code{dataframe}
 
 get_data <- function(dataset, version) {
