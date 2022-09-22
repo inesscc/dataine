@@ -43,4 +43,17 @@ get_data <- function(dataset, version) {
   return(df)
 }
 
-
+#' Get catalog of data available
+#' @param dataset \code{string}
+#' @param version \code{string}
+#' @export
+#' @return \code{list}
+#'
+get_columns <- function(dataset, version) {
+  # request
+  response <- httr::GET(paste0(ip, glue("/colnames/{dataset}/{version}") ))
+  columns <-  httr::content(response) %>%
+    unlist() %>%
+    unname()
+  return(columns)
+}
