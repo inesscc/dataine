@@ -2,13 +2,16 @@
 % Please edit documentation in R/get.R
 \name{get_catalog}
 \alias{get_catalog}
-\title{Get catalog of data available}
+\title{Get catalog of available data}
 \usage{
-get_catalog()
+get_catalog(dataset = c("full", "ene", "epf_personas", "enusc"))
+}
+\arguments{
+\item{dataset}{\code{string} name of dataset}
 }
 \value{
 \code{dataframe}
 }
 \description{
-Get catalog of data available
+Get catalog of available data
 }

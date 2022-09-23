@@ -2,9 +2,9 @@
 % Please edit documentation in R/get.R
 \name{get_data}
 \alias{get_data}
-\title{Get catalog of data available}
+\title{Get dataset}
 \usage{
-get_data(dataset, version)
+get_data(dataset, version = NULL)
 }
 \arguments{
 \item{dataset}{\code{string}}
@@ -15,5 +15,5 @@ get_data(dataset, version)
 \code{dataframe}
 }
 \description{
-Get catalog of data available
+Get dataset
 }

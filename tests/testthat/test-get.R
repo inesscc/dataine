@@ -1,7 +1,3 @@
-context("test-get")
-
-
-
-test_that("Catalog must be dataframe", {
-  expect_equal(sum(class(get_catalog()) == "data.frame"), 1)
+test_that("multiplication works", {
+  expect_equal(2 * 2, 4)
 })

@@ -2,7 +2,7 @@
 % Please edit documentation in R/get.R
 \name{get_columns}
 \alias{get_columns}
-\title{Get catalog of data available}
+\title{Get columns of a dataset}
 \usage{
 get_columns(dataset, version)
 }
@@ -15,5 +15,5 @@ get_columns(dataset, version)
 \code{list}
 }
 \description{
-Get catalog of data available
+Get columns of a dataset
 }
