@@ -19,12 +19,19 @@ get_data <- function(dataset, version = NULL) {
       dplyr::pull(version)
   }
   # request
+  # dataset <- "ene"
+  # version <- "2022-07-jja"
   data <- httr::GET(paste0(ip, glue::glue("/data/{dataset}/{version}") ))
 
   # Convert to dataframe
   json <- httr::content(data)
+
   df <- purrr::map(json$data, function(x) {unname(unlist(x)) } ) %>%
     dplyr::bind_cols()
+
+  # Get columns to sort in the right order
+  columns <- get_columns( dataset, version)
+  df <- df[columns]
 
   return(df)
 }
