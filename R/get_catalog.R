@@ -1,12 +1,12 @@
 #' Get catalog of available data
-#' @param dataset \code{string} name of dataset
+#' @param dataset \code{string} name of dataset. The possible values are "full", "ene", "epf_personas", "epf_gastos", "enusc" or "esi". The default value is "full"
 #' @import httr
 #' @import dplyr
 #' @importFrom rlang .data
 #' @export
 #' @return \code{dataframe}
 
-get_catalog <- function( dataset = c("full", "ene", "epf_personas", "enusc")) {
+get_catalog <- function( dataset = c("full", "ene", "epf_personas", "epf_gastos", "enusc", "esi")) {
 
   # check if the dataset is correct
   dataset <- match.arg(dataset)
