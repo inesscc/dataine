@@ -4,10 +4,12 @@
 \alias{get_catalog}
 \title{Get catalog of available data}
 \usage{
-get_catalog(dataset = c("full", "ene", "epf_personas", "enusc"))
+get_catalog(
+  dataset = c("full", "ene", "epf_personas", "epf_gastos", "enusc", "esi")
+)
 }
 \arguments{
-\item{dataset}{\code{string} name of dataset}
+\item{dataset}{\code{string} name of dataset. The possible values are "full", "ene", "epf_personas", "epf_gastos", "enusc" or "esi". The default value is "full"}
 }
 \value{
 \code{dataframe}

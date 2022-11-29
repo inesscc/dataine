@@ -4,7 +4,7 @@
 \alias{get_many_data}
 \title{Get multiple datasets}
 \usage{
-get_many_data(dataset, from, to, versions = NULL)
+get_many_data(dataset, from = NULL, to = NULL, versions = NULL)
 }
 \arguments{
 \item{dataset}{\code{string}}
@@ -16,7 +16,7 @@ get_many_data(dataset, from, to, versions = NULL)
 \item{versions}{\code{character vector} with specific versions of any survey}
 }
 \value{
-\code{list}
+\code{list} containing all the datasets between the from and to parameters
 }
 \description{
 Get multiple datasets

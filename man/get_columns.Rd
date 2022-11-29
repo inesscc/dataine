@@ -2,18 +2,18 @@
 % Please edit documentation in R/get_columns.R
 \name{get_columns}
 \alias{get_columns}
-\title{Get columns of a dataset}
+\title{Get columns of a specific dataset}
 \usage{
 get_columns(dataset, version)
 }
 \arguments{
-\item{dataset}{\code{string}}
+\item{dataset}{\code{string}. The possible values are "ene", "epf_personas", "epf_gastos", "enusc" or "esi"}
 
-\item{version}{\code{string}}
+\item{version}{\code{string} indicating the id for a dataset. This value can be obtained through the get_catalog function}
 }
 \value{
-\code{list}
+\code{character vector}
 }
 \description{
-Get columns of a dataset
+Get columns of a specific dataset
 }

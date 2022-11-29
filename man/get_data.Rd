@@ -2,12 +2,12 @@
 % Please edit documentation in R/get_data.R
 \name{get_data}
 \alias{get_data}
-\title{Get dataset}
+\title{Download a dataset from the API INE service}
 \usage{
 get_data(dataset, version = NULL)
 }
 \arguments{
-\item{dataset}{\code{string}}
+\item{dataset}{\code{string}. The possible values are "ene", "epf_personas", "epf_gastos", "enusc" or "esi"}
 
 \item{version}{\code{string} by default is the newest version}
 }
@@ -15,5 +15,5 @@ get_data(dataset, version = NULL)
 \code{dataframe}
 }
 \description{
-Get dataset
+Download a dataset from the API INE service
 }
