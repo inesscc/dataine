@@ -12,8 +12,11 @@ test_that("get_data returns a data.frame", {
   expect_equal(sum(class(get_data("enusc", "2020")) == "data.frame"), 1  )
 })
 
+
+data <- "enusc"
+
 test_that("get_data returns right error when version doesn't exist", {
-  expect_error(get_data("enusc", "2000"), "The available versions for your survey are 2021, 2020, 2019, 2018, 2017" )
+  expect_error(get_data(data, "2000"), get_available_versions(data) )
 })
 
 #################

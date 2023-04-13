@@ -21,13 +21,17 @@ get_catalog <- function( dataset = c("full", "ene", "epf_personas", "epf_gastos"
   # Extract content from server answer
   json <- httr::content(request)
 
+
   # Convert to dataframe
-  full_catalog <-  purrr::map(json$datasets, unlist) %>%
+  full_catalog <-  purrr::map(json, unlist) %>%
     purrr::imap(~tibble::tibble(version = .x)) %>%
     purrr::imap(~dplyr::mutate(.x, encuesta = .y)) %>%
     dplyr::bind_rows() %>%
     dplyr::relocate(.data$encuesta) %>%
-    dplyr::arrange(desc(version))
+    dplyr::group_by(.data$encuesta) %>%
+    dplyr::arrange(desc(.data$version))
+
+
 
   return(full_catalog)
 }
