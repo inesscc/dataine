@@ -2,7 +2,7 @@
 title: "Tutorial"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{my-vignette}
+  %\VignetteIndexEntry{Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -23,7 +23,7 @@ This tutorials shows the basic usage of the main functions.
 
 ## Get catalog
 
-`get_catalog()` returns a dataframe containing all the datasets available in the repository
+`get_catalog()` returns a dataframe containing all the datasets available in the repository. The *encuesta* column contains the survey where the dataset comes from. The *version* column indicates the year or quarterly when the dataset was collected.     
 
 ```{r}
 get_catalog()
