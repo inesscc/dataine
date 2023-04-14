@@ -10,22 +10,79 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  message = FALSE
 )
 ```
 
 ```{r setup}
 library(inedata)
+library(dplyr)
 ```
 
 
-This tutorials shows the basic usage of the main functions. 
+The `inedata` package allows to download datasets produced by INE Chile. The package communicates with an API REST, which makes it possible to retrieve many household survey datasets using R code. All the available data provided by this API corresponds to  files published on the INE's web site. 
 
-## Get catalog
+At the moment the API is restricted to the institutional network. Because of that the package works only in this environment. We hope to make the API available to the general public as soon as possible.     
+
+
+
+
+
+## Getting catalog
 
 `get_catalog()` returns a dataframe containing all the datasets available in the repository. The *encuesta* column contains the survey where the dataset comes from. The *version* column indicates the year or quarterly when the dataset was collected.     
 
 ```{r}
 get_catalog()
 ```
+
+The `dataset` parameter retrieves information for a specific survey. In this example we are using *ene*, which returns all the available versions for that survey. We will store the first file in a variable called `file`.  
+
+```{r}
+get_catalog(dataset = "ene")
+
+file <-  get_catalog(dataset = "ene") %>% 
+  dplyr::slice(1) %>% 
+  pull(version)
+```
+
+## Getting columns
+
+The `get_columns` function returns the columns for a specific file. We already have the name of one of the available versions. 
+
+```{r}
+get_columns("ene", file)
+```
+
+
+## Downloading data
+
+To download a specific dataset we can use the `get_data` function. For instance, we can get the ENE data for a specific quarterly or the 2020 ENUSC dataset.   
+```{r}
+first_rows1 <-  get_data(dataset = "ene", version = file) %>% 
+  slice(1:5)
+
+first_rows2 <-  get_data(dataset = "enusc", version = "2020" ) %>% 
+  slice(1:5)
+
+first_rows2
+```
+```{r}
+get_catalog("ene")
+```
+
+*Important note*
+
+The `get_many_data` function allows to download more than one dataset at the same time. In this example we are getting all the versions between August (2022-08-jas) and October (2022-10-son) 2022. 
+
+The output is a list of dataframes. In this case we can see the df_list contains  3 elements.    
+
+```{r}
+df_list <-  get_many_data(dataset = "ene", from = "2022-08-jas", to = "2022-10-son" )
+length(df_list)
+
+
+```
+
 
