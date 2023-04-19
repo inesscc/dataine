@@ -12,7 +12,7 @@
 
 
 
-<title>Tutorial</title>
+<title>Testing</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -337,14 +337,24 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Tutorial</h1>
+<h1 class="title toc-ignore">Testing</h1>
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(inedata)</span></code></pre></div>
-<p>This tutorials shows the basic usage of the main functions.</p>
-<div id="get-catalog" class="section level2">
-<h2>Get catalog</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(inedata)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div id="package-tutorial" class="section level1">
+<h1>Package Tutorial</h1>
+<p>The <code>inedata</code> package allows to download datasets produced
+by INE Chile. The package communicates with an API REST, which makes it
+possible to retrieve many household survey datasets using R code. All
+the available data provided by this API corresponds to files published
+on the INE’s web site.</p>
+<p>At the moment the API is restricted to the institutional network.
+Because of that the package works only in this environment. We hope to
+make the API available to the general public as soon as possible.</p>
+<div id="getting-catalog" class="section level2">
+<h2>Getting catalog</h2>
 <p><code>get_catalog()</code> returns a dataframe containing all the
 datasets available in the repository. The <em>encuesta</em> column
 contains the survey where the dataset comes from. The <em>version</em>
@@ -366,6 +376,179 @@ collected.</p>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 ene          2022-06-mjj</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 ene          2022-05-amj</span></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # i 184 more rows</span></span></code></pre></div>
+<p>The <code>dataset</code> parameter retrieves information for a
+specific survey. In this example we are using <em>ene</em>, which
+returns all the available versions for that survey. We will store the
+first file in a variable called <code>file</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_catalog</span>(<span class="at">dataset =</span> <span class="st">&quot;ene&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 153 x 2</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   encuesta [1]</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    encuesta version    </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;      </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 ene      2022-10-son</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 ene      2022-09-aso</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 ene      2022-08-jas</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 ene      2022-07-jja</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 ene      2022-06-mjj</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 ene      2022-05-amj</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 ene      2022-04-mam</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 ene      2022-03-fma</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 ene      2022-02-efm</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 ene      2022-01-def</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # i 143 more rows</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span>  <span class="fu">get_catalog</span>(<span class="at">dataset =</span> <span class="st">&quot;ene&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(version)</span></code></pre></div>
+</div>
+<div id="getting-columns" class="section level2">
+<h2>Getting columns</h2>
+<p>The <code>get_columns</code> function returns the columns for a
+specific file. We already have the name of one of the available
+versions.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_columns</span>(<span class="st">&quot;ene&quot;</span>, file)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1] &quot;index&quot;                 &quot;ano_trimestre&quot;         &quot;mes_central&quot;          </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [4] &quot;ano_encuesta&quot;          &quot;mes_encuesta&quot;          &quot;region&quot;               </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [7] &quot;provincia&quot;             &quot;r_p_c&quot;                 &quot;estrato&quot;              </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [10] &quot;tipo&quot;                  &quot;conglomerado&quot;          &quot;id_identificacion&quot;    </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [13] &quot;hogar&quot;                 &quot;idrph&quot;                 &quot;nro_linea&quot;            </span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [16] &quot;edad&quot;                  &quot;tramo_edad&quot;            &quot;sexo&quot;                 </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [19] &quot;parentesco&quot;            &quot;curso&quot;                 &quot;nivel&quot;                </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [22] &quot;termino_nivel&quot;         &quot;estudia_actual&quot;        &quot;cine&quot;                 </span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [25] &quot;est_conyugal&quot;          &quot;proveedor&quot;             &quot;orig1&quot;                </span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [28] &quot;orig2&quot;                 &quot;orig3&quot;                 &quot;nacionalidad&quot;         </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [31] &quot;mig1&quot;                  &quot;mig2_cod&quot;              &quot;mig3_cod&quot;             </span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [34] &quot;mig4&quot;                  &quot;mig5_cod&quot;              &quot;mig6_cod&quot;             </span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [37] &quot;a1&quot;                    &quot;a2&quot;                    &quot;a3&quot;                   </span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [40] &quot;a4&quot;                    &quot;a5&quot;                    &quot;a6&quot;                   </span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [43] &quot;a6_otro&quot;               &quot;a7&quot;                    &quot;a8&quot;                   </span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [46] &quot;a9&quot;                    &quot;b1&quot;                    &quot;b2&quot;                   </span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [49] &quot;b3&quot;                    &quot;b4&quot;                    &quot;b5&quot;                   </span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [52] &quot;b6&quot;                    &quot;b7a_1&quot;                 &quot;b7a_2&quot;                </span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [55] &quot;b7a_3&quot;                 &quot;b7b_1&quot;                 &quot;b7b_2&quot;                </span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [58] &quot;b7b_3&quot;                 &quot;b7b_4&quot;                 &quot;b8&quot;                   </span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [61] &quot;b9&quot;                    &quot;b10&quot;                   &quot;b11_proxy&quot;            </span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [64] &quot;b12&quot;                   &quot;b13_rev4cl_caenes&quot;     &quot;i1&quot;                   </span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [67] &quot;i2&quot;                    &quot;i3&quot;                    &quot;i3_v&quot;                 </span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [70] &quot;i4&quot;                    &quot;i5&quot;                    &quot;i6&quot;                   </span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [73] &quot;i7&quot;                    &quot;b14_rev4cl_caenes&quot;     &quot;b15_1&quot;                </span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [76] &quot;b15_2&quot;                 &quot;b16&quot;                   &quot;b16_otro&quot;             </span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [79] &quot;b17_mes&quot;               &quot;b17_ano&quot;               &quot;b18_codigo&quot;           </span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [82] &quot;b18_region&quot;            &quot;b18_varias&quot;            &quot;ocup_honorarios&quot;      </span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [85] &quot;plataformas_digitales&quot; &quot;pd_especifique&quot;        &quot;b19&quot;                  </span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [88] &quot;dependencia_segunda&quot;   &quot;sda_pd&quot;                &quot;sda_pd_especifique&quot;   </span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [91] &quot;turno&quot;                 &quot;turno_d&quot;               &quot;turno_de&quot;             </span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [94] &quot;turno_h&quot;               &quot;turno_t&quot;               &quot;c2_1_1&quot;               </span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [97] &quot;c2_1_2&quot;                &quot;c2_1_3&quot;                &quot;c2_2_1&quot;               </span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [100] &quot;c2_2_2&quot;                &quot;c2_2_3&quot;                &quot;c3_1&quot;                 </span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [103] &quot;c3_2&quot;                  &quot;c3_3&quot;                  &quot;turno_cont_d&quot;         </span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [106] &quot;turno_cont_de&quot;         &quot;turno_cont_h&quot;          &quot;turno_cont_t&quot;         </span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [109] &quot;c4&quot;                    &quot;c5&quot;                    &quot;c6&quot;                   </span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [112] &quot;c7&quot;                    &quot;c8&quot;                    &quot;c9&quot;                   </span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [115] &quot;c9_otro&quot;               &quot;adicionales_h&quot;         &quot;adicionales_d&quot;        </span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [118] &quot;adicionales_t&quot;         &quot;c10&quot;                   &quot;c11&quot;                  </span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [121] &quot;c12&quot;                   &quot;habituales&quot;            &quot;efectivas&quot;            </span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [124] &quot;e2&quot;                    &quot;e3_1&quot;                  &quot;e3_2&quot;                 </span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [127] &quot;e3_3&quot;                  &quot;e3_4&quot;                  &quot;e3_5&quot;                 </span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [130] &quot;e3_6&quot;                  &quot;e3_7&quot;                  &quot;e3_8&quot;                 </span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [133] &quot;e3_9&quot;                  &quot;e3_10&quot;                 &quot;e3_11&quot;                </span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [136] &quot;e3_12&quot;                 &quot;e3_total&quot;              &quot;e4&quot;                   </span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [139] &quot;e5&quot;                    &quot;e5_dia&quot;                &quot;e5_sem&quot;               </span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [142] &quot;e5_mes&quot;                &quot;e5_ano&quot;                &quot;e6_mes&quot;               </span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [145] &quot;e6_ano&quot;                &quot;e7&quot;                    &quot;e9&quot;                   </span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [148] &quot;e9_otro&quot;               &quot;e10&quot;                   &quot;deseo_trabajar&quot;       </span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [151] &quot;e11&quot;                   &quot;e12&quot;                   &quot;e12_otro&quot;             </span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [154] &quot;e13&quot;                   &quot;e21_mes&quot;               &quot;e21_ano&quot;              </span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [157] &quot;e21_tramo&quot;             &quot;e22&quot;                   &quot;e23&quot;                  </span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [160] &quot;e23_otro&quot;              &quot;e24&quot;                   &quot;e24_otro&quot;             </span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [163] &quot;activ&quot;                 &quot;obe&quot;                   &quot;tpi&quot;                  </span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [166] &quot;id&quot;                    &quot;ftp&quot;                   &quot;cae_general&quot;          </span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [169] &quot;cae_especifico&quot;        &quot;categoria_ocupacion&quot;   &quot;ocup_form&quot;            </span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [172] &quot;r_p_rev4cl_caenes&quot;     &quot;sector&quot;                &quot;fact_cal&quot;</span></span></code></pre></div>
+</div>
+<div id="downloading-data" class="section level2">
+<h2>Downloading data</h2>
+<p>To download a specific dataset we can use the <code>get_data</code>
+function. For instance, we can get the ENE data for a specific quarterly
+or the 2020 ENUSC dataset.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>first_rows1 <span class="ot">&lt;-</span>  <span class="fu">get_data</span>(<span class="at">dataset =</span> <span class="st">&quot;ene&quot;</span>, <span class="at">version =</span> file) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>first_rows2 <span class="ot">&lt;-</span>  <span class="fu">get_data</span>(<span class="at">dataset =</span> <span class="st">&quot;enusc&quot;</span>, <span class="at">version =</span> <span class="st">&quot;2020&quot;</span> ) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>first_rows2</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 174</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   index `&lt;U+FEFF&gt;rph_ID` enc_idr enc_region IH_residencia_habitual IH_comparte_gastos</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;int&gt;    &lt;int&gt;   &lt;int&gt;      &lt;int&gt;                  &lt;int&gt;              &lt;int&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     0   201445     125         13                      2                  1</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     1   201450     125         13                      2                  1</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     2   179796     145         13                      2                  1</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     3   179803     145         13                      2                  1</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     4   242961     305          9                      2                  1</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # i 168 more variables: IH_numero_grupos &lt;chr&gt;, IH_cantidad_hogar &lt;int&gt;,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   rph_numeroLinea &lt;int&gt;, rph_numHogar &lt;int&gt;, rph_parentesco &lt;int&gt;,</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   rph_edad &lt;int&gt;, rph_sexo &lt;int&gt;, rph_idgen &lt;chr&gt;, Kish &lt;int&gt;,</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   Hogar_Kish &lt;int&gt;, rph_pertenencia_indigena &lt;chr&gt;, rph_nacionalidad &lt;chr&gt;,</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   rph_migracion &lt;chr&gt;, rph_p9 &lt;chr&gt;, rph_p10 &lt;chr&gt;, rph_p11 &lt;chr&gt;,</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   rph_p12 &lt;chr&gt;, rph_p13 &lt;chr&gt;, rph_p14 &lt;chr&gt;, P1_1_1 &lt;chr&gt;, P1_2_1 &lt;chr&gt;,</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   P1_3_1 &lt;chr&gt;, P2_1_1 &lt;chr&gt;, P2_2_1 &lt;chr&gt;, P2_3_1 &lt;chr&gt;, P3_1_1 &lt;chr&gt;, ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_catalog</span>(<span class="st">&quot;ene&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 153 x 2</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   encuesta [1]</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    encuesta version    </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;      </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 ene      2022-10-son</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 ene      2022-09-aso</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 ene      2022-08-jas</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 ene      2022-07-jja</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 ene      2022-06-mjj</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 ene      2022-05-amj</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 ene      2022-04-mam</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 ene      2022-03-fma</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 ene      2022-02-efm</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 ene      2022-01-def</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # i 143 more rows</span></span></code></pre></div>
+<p><strong>Nota importante: Debido a que el proyecto está en una fase de
+testeo, la API devuelve solo las primeras 300 filas de cada archivo. El
+motivo de ello es facilitar las pruebas</strong></p>
+<p>The <code>get_many_data</code> function allows to download more than
+one dataset at the same time. In this example we are getting all the
+versions between August (2022-08-jas) and October (2022-10-son)
+2022.</p>
+<p>The output is a list of <em>dataframes</em>. In this case we can see
+the <em>df_list</em> contains 3 elements.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_list <span class="ot">&lt;-</span>  <span class="fu">get_many_data</span>(<span class="at">dataset =</span> <span class="st">&quot;ene&quot;</span>, <span class="at">from =</span> <span class="st">&quot;2022-08-jas&quot;</span>, <span class="at">to =</span> <span class="st">&quot;2022-10-son&quot;</span> )</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(df_list)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span></code></pre></div>
+<p>We can convert the three <em>dataframes</em> into one table</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ene_table <span class="ot">&lt;-</span>  df_list <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  </span></code></pre></div>
+</div>
+</div>
+<div id="tutorial-api" class="section level1">
+<h1>Tutorial API</h1>
+<p>El paquete en R funciona sobre un servicio desarrollado en Python,
+cuya documentación se encuentra publicada <a href="http://10.90.10.46:7000/docs">aquí</a>. A continuación, se
+presentan los <em>endpoints</em> y un <em>link</em> a la
+documentación.</p>
+<div id="retorna-los-datasets-disponibles" class="section level2">
+<h2>Retorna los datasets disponibles</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>datasets</span></code></pre></div>
+</div>
+<div id="retorna-los-datasets-para-un-producto-en-específico" class="section level2">
+<h2>Retorna los datasets para un producto en específico</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>datasets<span class="sc">/</span>{encuesta}</span></code></pre></div>
+</div>
+<div id="retorna-las-columnas-de-un-archivo" class="section level2">
+<h2>Retorna las columnas de un archivo</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>colnames<span class="sc">/</span>{encuesta}<span class="sc">/</span>{version}</span></code></pre></div>
+</div>
+<div id="retorna-datos-de-un-archivo-300-filas-por-el-momento" class="section level2">
+<h2>Retorna datos de un archivo (300 filas por el momento)</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>data<span class="sc">/</span>{encuesta}<span class="sc">/</span>{version}</span></code></pre></div>
+</div>
 </div>
 
 

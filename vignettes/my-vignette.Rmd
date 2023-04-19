@@ -1,8 +1,8 @@
 ---
-title: "Tutorial"
+title: "Testing"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tutorial}
+  %\VignetteIndexEntry{Testing}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,13 +20,11 @@ library(inedata)
 library(dplyr)
 ```
 
+# Package Tutorial
 
 The `inedata` package allows to download datasets produced by INE Chile. The package communicates with an API REST, which makes it possible to retrieve many household survey datasets using R code. All the available data provided by this API corresponds to  files published on the INE's web site. 
 
 At the moment the API is restricted to the institutional network. Because of that the package works only in this environment. We hope to make the API available to the general public as soon as possible.     
-
-
-
 
 
 ## Getting catalog
@@ -72,11 +70,11 @@ first_rows2
 get_catalog("ene")
 ```
 
-*Important note*
+**Nota importante: Debido a que el proyecto está en una fase de testeo, la API devuelve solo las primeras 300 filas de cada archivo. El motivo de ello es facilitar las pruebas** 
 
 The `get_many_data` function allows to download more than one dataset at the same time. In this example we are getting all the versions between August (2022-08-jas) and October (2022-10-son) 2022. 
 
-The output is a list of dataframes. In this case we can see the df_list contains  3 elements.    
+The output is a list of *dataframes*. In this case we can see the *df_list* contains 3 elements.    
 
 ```{r}
 df_list <-  get_many_data(dataset = "ene", from = "2022-08-jas", to = "2022-10-son" )
@@ -84,5 +82,47 @@ length(df_list)
 
 
 ```
+We can convert the three *dataframes* into one table
+
+```{r}
+ene_table <-  df_list %>% 
+  bind_rows()
+  
+```
+
+
+# Tutorial API
+
+El paquete en R funciona sobre un servicio desarrollado en Python, cuya documentación se encuentra publicada 
+[aquí](http://10.90.10.46:7000/docs). A continuación, se presentan los *endpoints* y un *link* a la documentación.
+
+
+
+
+## Retorna los datasets disponibles
+
+```{r, eval=FALSE}
+http://10.90.10.46:7000/datasets
+```
+
+## Retorna los datasets para un producto en específico
+
+```{r, eval=FALSE}
+http://10.90.10.46:7000/datasets/{encuesta}
+```
+
+## Retorna las columnas de un archivo
+
+```{r, eval=FALSE}
+http://10.90.10.46:7000/colnames/{encuesta}/{version}
+
+```
+
+## Retorna datos de un archivo (300 filas por el momento) 
+
+```{r, eval=FALSE}
+http://10.90.10.46:7000/data/{encuesta}/{version}
+```
+
 
 
