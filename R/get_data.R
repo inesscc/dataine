@@ -11,7 +11,7 @@ get_data <- function(dataset, version = NULL) {
 
   # Validate arguments
   assertthat::assert_that(is.character(version))
-  match.arg(dataset, c("ene", "epf_personas", "enusc"))
+  match.arg(dataset, c("ene", "epf_personas", "epf_gastos", "enusc", "esi"))
 
   # Validate version
   if (!is.null(version) && validate_version(dataset, version) == FALSE) {
@@ -53,18 +53,18 @@ get_data <- function(dataset, version = NULL) {
 #'
 get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL) {
 
-  match.arg(dataset, c("ene", "epf_personas", "enusc", "esi"))
+  match.arg(dataset, c("ene", "epf_personas", "epf_gastos", "enusc", "esi"))
 
-  # from = "2021-12-nde"
+  # from = "vii"
   # to = "2022-05-amj"
 
   # Validate relation between from-to and versions
   if ( (is.null(from) & is.null(to) & is.null(versions)  )) {
-      stop("you have to select from-to or versions")
+    stop("you have to select from-to or versions")
   }  else if ( (!is.null(from) & is.null(to) ) | (is.null(from) & !is.null(to)) ) {
-      stop("you have to include from and to")
+    stop("you have to include from and to")
   } else if ((!is.null(from) & is.null(to) &  !is.null(versions))) {
-      stop("You can't select from-to and versions at the same time")
+    stop("You can't select from-to and versions at the same time")
   }
 
 
@@ -80,7 +80,6 @@ get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL) {
     # If there is one or more invalid versions, an error is thrown
     if (sum(map_lgl(versions, ~validate_version(dataset, .x))) != length(versions)  ) {
       stop("Some of the versions in your vector are invalid")
-      print("hola")
     }
   }
 

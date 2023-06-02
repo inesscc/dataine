@@ -1,4 +1,3 @@
-
 #ip <- "http://143.198.79.143:5003"
 #ip <- "http://127.0.0.1:8000"
 ip <- "http://10.90.10.46:7000"
@@ -18,5 +17,7 @@ get_columns <- function(dataset, version) {
   columns <-  httr::content(response) %>%
     unlist() %>%
     unname()
+
+  columns <- columns[columns != "index"]
   return(columns)
 }

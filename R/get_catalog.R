@@ -4,7 +4,16 @@
 #' @import dplyr
 #' @importFrom rlang .data
 #' @export
-#' @return \code{dataframe}
+#' @return \code{dataframe with two columns: survey and version}
+#' 1. Columns
+#'
+#' \itemize{
+#'   \item \code{survey} One of the surveys conducted by INE Chile
+#'   \item \code{version} Specific version of a survey. It can be year or a quarter
+#' }
+#'
+
+
 
 get_catalog <- function( dataset = c("full", "ene", "epf_personas", "epf_gastos", "enusc", "esi")) {
 
@@ -25,13 +34,13 @@ get_catalog <- function( dataset = c("full", "ene", "epf_personas", "epf_gastos"
   # Convert to dataframe
   full_catalog <-  purrr::map(json, unlist) %>%
     purrr::imap(~tibble::tibble(version = .x)) %>%
-    purrr::imap(~dplyr::mutate(.x, encuesta = .y)) %>%
+    purrr::imap(~dplyr::mutate(.x, survey = .y)) %>%
     dplyr::bind_rows() %>%
-    dplyr::relocate(.data$encuesta) %>%
-    dplyr::group_by(.data$encuesta) %>%
-    dplyr::arrange(desc(.data$version))
+    dplyr::relocate(.data$survey) %>%
+    dplyr::arrange(desc(.data$survey))
 
 
 
   return(full_catalog)
 }
+
