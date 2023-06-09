@@ -2,6 +2,7 @@
 #' @param dataset \code{string} name of dataset. The possible values are "full", "ene", "epf_personas", "epf_gastos", "enusc" or "esi". The default value is "full"
 #' @import httr
 #' @import dplyr
+#' @import jsonlite
 #' @importFrom rlang .data
 #' @export
 #' @return \code{dataframe with two columns: survey and version}
@@ -12,7 +13,6 @@
 #'   \item \code{version} Specific version of a survey. It can be year or a quarter
 #' }
 #'
-
 
 
 get_catalog <- function( dataset = c("full", "ene", "epf_personas", "epf_gastos", "enusc", "esi")) {
@@ -32,12 +32,9 @@ get_catalog <- function( dataset = c("full", "ene", "epf_personas", "epf_gastos"
 
 
   # Convert to dataframe
-  full_catalog <-  purrr::map(json, unlist) %>%
-    purrr::imap(~tibble::tibble(version = .x)) %>%
-    purrr::imap(~dplyr::mutate(.x, survey = .y)) %>%
-    dplyr::bind_rows() %>%
-    dplyr::relocate(.data$survey) %>%
-    dplyr::arrange(desc(.data$survey))
+  full_catalog <- jsonlite::fromJSON(json, simplifyVector = T) %>%
+    dplyr::arrange(desc(.data$survey)) %>%
+    dplyr::ungroup()
 
 
 
