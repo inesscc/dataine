@@ -6,15 +6,12 @@
 #' @import xml2
 #' @export
 #' @return \code{dataframe}
+get_data <- function(dataset, version = NULL, col_list = NULL) {
 
-get_data <- function(dataset, version = NULL) {
-
-  # Validate arguments
-  assertthat::assert_that(is.character(version))
   match.arg(dataset, c("ene", "epf_personas", "epf_gastos", "enusc", "esi"))
 
   # Validate version
-  if (!is.null(version) && validate_version(dataset, version) == FALSE) {
+  if (!is.null(version) & validate_version(dataset, version) == FALSE) {
     stop(get_available_versions(dataset))
   }
 
@@ -26,6 +23,9 @@ get_data <- function(dataset, version = NULL) {
       dplyr::pull(version)
   }
 
+  # Validate arguments
+  #assertthat::assert_that(is.character(version)) # esto nunca va a
+
   data <- httr::GET(paste0(ip, glue::glue("/data/{dataset}/{version}") ))
 
   # Convert to dataframe
@@ -36,11 +36,36 @@ get_data <- function(dataset, version = NULL) {
 
   # Get columns to sort in the right order
   columns <- get_columns( dataset, version)
+  if(!is.null(col_list)) {
+
+    if(is_empty(setdiff(col_list, columns))){
+      rlang::inform(c("v" = 'Fue posible seleccionar todas las columnas ingresadas'))
+    } else if(setdiff(col_list, columns)  %>% identical(col_list)){
+
+      rlang::abort(c('x' = glue('Ninguna de las columnas ingresadas existe en
+                                los datos de {dataset} {version}')))
+
+    } else{
+
+      variables_faltantes = setdiff(col_list, columns) %>%
+        paste0(collapse = ', ' )
+      variables_disponibles = setdiff(col_list, variables_faltantes) %>%
+        paste0(collapse = ', ' )
+
+      rlang::warn(c('i' = 'No todas las variables ingresadas están disponibles',
+        'v' = glue('Variables disponibles: {variables_disponibles}'),
+                      'x' = glue('Variables faltantes: {variables_faltantes}'),
+        'Se procederá a cargar las que sí están disponibles'))
+
+      }
+
+    columns = columns[columns %in% col_list]
+
+  }
   df <- df[columns]
 
   return(df)
 }
-
 
 #' Get multiple datasets
 #' @param dataset \code{string}
@@ -51,7 +76,8 @@ get_data <- function(dataset, version = NULL) {
 #' @export
 #' @return \code{list} containing all the datasets between the from and to parameters
 #'
-get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL) {
+get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL,
+                          col_list = NULL) {
 
   match.arg(dataset, c("ene", "epf_personas", "epf_gastos", "enusc", "esi"))
 
@@ -77,9 +103,15 @@ get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL) {
 
   # Validate "versions" parameter
   if (!is.null(versions) ) {
+    validacion_versiones = map_lgl(versions, ~validate_version(dataset, .x))
     # If there is one or more invalid versions, an error is thrown
-    if (sum(map_lgl(versions, ~validate_version(dataset, .x))) != length(versions)  ) {
-      stop("Some of the versions in your vector are invalid")
+    if (sum(validacion_versiones) != length(versions)  ) {
+
+      invalid_versions = versions[(1- validacion_versiones) %>% as.logical()]
+
+
+      stop(glue("Some of the versions in your vector are invalid:
+                {paste0(invalid_versions, collapse = ', ')}"))
     }
   }
 
@@ -92,7 +124,8 @@ get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL) {
   }
 
   # Download data
-  datasets <-  purrr::map(versions, ~ get_data(dataset, .x) )
+  datasets <-  purrr::map(versions, ~ get_data(dataset, .x, col_list = col_list) )
+
   names(datasets) <- versions
   return(datasets)
 }
