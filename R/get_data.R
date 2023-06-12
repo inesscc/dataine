@@ -6,6 +6,8 @@
 #' @import xml2
 #' @export
 #' @return \code{dataframe}
+
+
 get_data <- function(dataset, version = NULL, col_list = NULL) {
 
   match.arg(dataset, c("ene", "epf_personas", "epf_gastos", "enusc", "esi"))
@@ -76,6 +78,9 @@ get_data <- function(dataset, version = NULL, col_list = NULL) {
 #' @export
 #' @return \code{list} containing all the datasets between the from and to parameters
 #'
+#'
+
+
 get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL,
                           col_list = NULL) {
 
@@ -89,7 +94,7 @@ get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL,
     stop("you have to select from-to or versions")
   }  else if ( (!is.null(from) & is.null(to) ) | (is.null(from) & !is.null(to)) ) {
     stop("you have to include from and to")
-  } else if ((!is.null(from) & is.null(to) &  !is.null(versions))) {
+  } else if ((!is.null(from) & !is.null(to) &  !is.null(versions))) {
     stop("You can't select from-to and versions at the same time")
   }
 
@@ -105,7 +110,7 @@ get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL,
   if (!is.null(versions) ) {
     validacion_versiones = map_lgl(versions, ~validate_version(dataset, .x))
     # If there is one or more invalid versions, an error is thrown
-    if (sum(validacion_versiones) != length(versions)  ) {
+    if (all(validacion_versiones) == T  ) {
 
       invalid_versions = versions[(1- validacion_versiones) %>% as.logical()]
 
@@ -116,7 +121,7 @@ get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL,
   }
 
 
-  # Create list of versions. If the parameters "from and "to" are selected we filter all the versions between tthe 2 dates.
+  # Create list of versions. If the parameters "from and "to" are selected we filter all the versions between the 2 dates.
   if (is.null(versions)) {
     versions <- get_catalog(dataset) %>%
       dplyr::filter(version >= from & version <= to) %>%
