@@ -23,14 +23,14 @@ library(dplyr)
 
 # Package Tutorial
 
-The `inedata` package allows to download datasets produced by INE Chile. The package communicates with an API REST, which makes it possible to retrieve many household survey datasets using R code. All the available data provided by this API corresponds to  files published on the INE's web site. 
+The `inedata` package allows to download datasets produced by INE Chile. The package communicates with an API REST, which makes it possible to retrieve many household survey datasets using R code. All the available data provided by this API corresponds to  files published on INE's web site. 
 
 At the moment the API is restricted to the institutional network. Because of that the package works only in this environment. We hope to make the API available to the general public as soon as possible.     
 
 
 ## Getting catalog
 
-`get_catalog()` returns a dataframe containing all the datasets available in the repository. The *encuesta* column contains the survey where the dataset comes from. The *version* column indicates the year or quarterly when the dataset was collected.     
+`get_catalog()` returns a dataframe containing all the datasets available in the repository. It also adds summary data in the form of number of columns and rows per dataset (in the *n_col* and *n_row* columns, respectively). The *survey* column contains the survey where the dataset comes from. The *version* column indicates the year or quarter when the dataset was collected.      
 
 ```{r}
 get_catalog()
@@ -57,7 +57,7 @@ get_columns("ene", file)
 
 ## Downloading data
 
-To download a specific dataset we can use the `get_data` function. For instance, we can get the ENE data for a specific quarterly or the 2020 ENUSC dataset.   
+To download a specific dataset we can use the `get_data` function. For instance, we can get the ENE data for a specific quarter or the 2020 ENUSC dataset.   
 ```{r}
 first_rows1 <-  get_data(dataset = "ene", version = file) %>% 
   slice(1:5)
@@ -71,7 +71,7 @@ first_rows2
 get_catalog("ene")
 ```
 
-**Nota importante: Debido a que el proyecto está en una fase de testeo, la API devuelve solo las primeras 300 filas de cada archivo. El motivo de ello es facilitar las pruebas** 
+**Important note: Due to the project being in a testing phase, the API only returns the first 300 rows of each file. This is done to facilitate testing.** 
 
 The `get_many_data` function allows to download more than one dataset at the same time. In this example we are getting all the versions between August (2022-08-jas) and October (2022-10-son) 2022. 
 
@@ -90,39 +90,39 @@ ene_table <-  df_list %>%
   bind_rows()
   
 ```
+**Important note:** different versions of the same dataset are not always compatible, so, the `bind_rows()` method won't always work. Be always careful when joining multiple versions and check their structure before proceeding. 
+
+# API Tutorial
+
+The R package works with a service developed in Python, whose documentation can be found 
+[here](http://10.90.10.46:7000/docs).Below are the endpoints and a link to the documentation.
+
+**Important note:** when interacting directly with the API, it is important to be aware that due to data format restrictions, any cells that were originally NA will be displayed as empty text.
 
 
-# Tutorial API
-
-El paquete en R funciona sobre un servicio desarrollado en Python, cuya documentación se encuentra publicada 
-[aquí](http://10.90.10.46:7000/docs). A continuación, se presentan los *endpoints* y un *link* a la documentación.
-
-
-
-
-## Retorna los datasets disponibles
+## Returns available datasets and a summary of number of rows and columns per dataset
 
 ```{r, eval=FALSE}
 http://10.90.10.46:7000/datasets
 ```
 
-## Retorna los datasets para un producto en específico
+## Returns datasets for a specific product
 
 ```{r, eval=FALSE}
-http://10.90.10.46:7000/datasets/{encuesta}
+http://10.90.10.46:7000/datasets/{dataset}
 ```
 
-## Retorna las columnas de un archivo
+## Returns the columns of a file
 
 ```{r, eval=FALSE}
-http://10.90.10.46:7000/colnames/{encuesta}/{version}
+http://10.90.10.46:7000/colnames/{dataset}/{version}
 
 ```
 
-## Retorna datos de un archivo (300 filas por el momento) 
+## Returns data from a file (300 rows at the moment)
 
 ```{r, eval=FALSE}
-http://10.90.10.46:7000/data/{encuesta}/{version}
+http://10.90.10.46:7000/data/{dataset}/{version}
 ```
 
 
