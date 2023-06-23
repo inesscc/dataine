@@ -41,11 +41,10 @@ get_data <- function(dataset, version = NULL, col_list = NULL) {
   if(!is.null(col_list)) {
 
     if(is_empty(setdiff(col_list, columns))){
-      rlang::inform(c("v" = 'Fue posible seleccionar todas las columnas ingresadas'))
+      rlang::inform(c("v" = 'All inputted columns were selected'))
     } else if(setdiff(col_list, columns)  %>% identical(col_list)){
 
-      rlang::abort(c('x' = glue('Ninguna de las columnas ingresadas existe en
-                                los datos de {dataset} {version}')))
+      rlang::abort(c('x' = glue('None of the inputted columns exist in {dataset} {version}')))
 
     } else{
 
@@ -54,17 +53,17 @@ get_data <- function(dataset, version = NULL, col_list = NULL) {
       variables_disponibles = setdiff(col_list, variables_faltantes) %>%
         paste0(collapse = ', ' )
 
-      rlang::warn(c('i' = 'No todas las variables ingresadas están disponibles',
-        'v' = glue('Variables disponibles: {variables_disponibles}'),
-                      'x' = glue('Variables faltantes: {variables_faltantes}'),
-        'Se procederá a cargar las que sí están disponibles'))
+      rlang::warn(c('i' = 'Not all inputted columns are available',
+        'v' = glue('Available columns: {variables_disponibles}'),
+                      'x' = glue('Missing columns: {variables_faltantes}'),
+        'Proceeding to load available columns.'))
 
       }
 
     columns = columns[columns %in% col_list]
 
   }
-  df <- df[columns]
+  df <- df[columns] %>% mutate(across(everything(), ~if_else(.x == '', NA, .x)))
 
   return(df)
 }
