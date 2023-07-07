@@ -28,13 +28,16 @@ get_data <- function(dataset, version = NULL, col_list = NULL) {
   # Validate arguments
   #assertthat::assert_that(is.character(version)) # esto nunca va a
 
+
   data <- httr::GET(paste0(ip, glue::glue("/data/{dataset}/{version}") ))
 
-  # Convert to dataframe
-  json <- httr::content(data)
 
-  df <- purrr::map(json$data, function(x) {unname(unlist(x)) } ) %>%
-    dplyr::bind_cols()
+  df = data$content %>% RcppSimdJson::fparse() %>% RcppSimdJson::fparse()
+
+
+
+  # df <- purrr::map(json$data, function(x) {unname(unlist(x)) } ) %>%
+  #   dplyr::bind_cols()
 
   # Get columns to sort in the right order
   columns <- get_columns( dataset, version)
