@@ -4,12 +4,16 @@ library(tictoc)
 source('R/get_catalog.R')
 source('R/get_columns.R')
 source('R/get_data.R')
+
 catalogo = get_catalog()
 catalogo %>% filter(survey == 'esi') %>% view
 esi_bind = catalogo %>% filter(survey == 'esi') %>%
   pull(version) %>% imap_dfr(~get_data('esi', version =.x) %>%
                                mutate(across(everything(), as.character)))
 
+catalogo %>% filter(survey == 'esi')
+
+e = get_data('esi', version ='2017-personas')
 
 col_na = ene_bind %>% summarise(across(everything(), ~sum(is.na(.x)) )) %>% t
 a = get_data(dataset = 'epf_personas', version = 'viii')
