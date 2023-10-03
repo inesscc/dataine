@@ -22,21 +22,20 @@ get_catalog <- function( dataset = c("full", "ene", "epf_personas", "epf_gastos"
 
   # request. It depends on the filter provided by user
   if (dataset == "full") {
-    request <- httr::GET(paste0(ip, "/datasets"))
+    request <- httr::GET(paste0(ip, "/info"))
   } else {
-    request <- httr::GET(paste0(ip, "/datasets/", dataset))
+    request <- httr::GET(paste0(ip, "/info?dataset_filter=", dataset))
   }
 
   # Extract content from server answer
   json <- httr::content(request)
 
-
   # Convert to dataframe
   full_catalog <- jsonlite::fromJSON(json, simplifyVector = T) %>%
     dplyr::arrange(desc(.data$survey)) %>%
-    dplyr::ungroup()
-
-
+    dplyr::ungroup() %>%
+    dplyr::mutate(file_size_MB = file_size/1000**2) %>%
+    select(-file_size)
 
   return(full_catalog)
 }

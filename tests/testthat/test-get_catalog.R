@@ -2,7 +2,8 @@
 
 
 ene <- get_catalog("ene") %>%
-  dplyr::pull(encuesta)
+  dplyr::pull(survey)
+
 
 test_that("get_catalog works with ene dataset", {
   expect_equal(sum(ene == "ene"), length(ene) )
@@ -12,3 +13,10 @@ test_that("get_catalog works with ene dataset", {
 test_that("get_catalog throws right error", {
   expect_error(get_catalog("eanna") )
 })
+
+# test reques with "full"
+
+test_that("get_catalog request all available surveys",{
+  expect_equal(unique(get_catalog()$survey),c("esi","epf_personas","epf_gastos","enusc","ene"))
+})
+
