@@ -62,6 +62,10 @@ test_that("Expect object with in R enviroment",{
 rm(datos)
 unlink("data", force = T, recursive = T)
 
+### no warning
+
+
+datos = get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "no_warning",memory_warning_limit = 10)
 
 ### Manualy prompt testing save local with many data ####
 
@@ -84,6 +88,12 @@ unlink("data", force = T, recursive = T)
 test_that("get_many_data returns the right number of datasets between two points, setting 'dont_ask_me' == T, for avoid prompt", {
   expect_equal(length(get_many_data("ene",  from = "2010-02-efm", to = "2010-05-amj",dont_ask_me = T,memory_warning_limit = 10)), 4  )
 })
+
+
+get_many_data("ene",versions = c("2010-02-efm","2010-03-fma","2010-04-mam"))
+
+
+
 
 ### testing internal resume download ####
 

@@ -1,7 +1,7 @@
 #' Download a dataset from the API INE service
 #' @param dataset \code{string}. The possible values are "ene", "epf_personas", "epf_gastos", "enusc" or "esi"
 #' @param version \code{string} by default is the newest version
-#' @param save_where \code{string} by default is "no", the possible values are "no","local","both".
+#' @param save_where \code{string} by default is "no", the possible values are "no","local","both","no_warning".
 #' @import glue
 #' @import assertthat
 #' @import xml2
@@ -9,7 +9,7 @@
 #' @return \code{dataframe}
 
 
-get_data <- function(dataset, version = NULL, col_list = NULL, save_where = c("no","local","both")) {
+get_data <- function(dataset, version = NULL, col_list = NULL, save_where = c("no","local","both","no_warning")) {
 
   save_where = match.arg(save_where)
 
@@ -93,8 +93,7 @@ if(any(save_where %in% c("no","both"))){
 #' @param from \code{string} specific version of any survey
 #' @param to \code{string} specific version of any survey
 #' @param versions \code{character vector} with specific versions of any survey
-#' @param save_where \code{string} by default is "no", the possible values are "no","local","both".
-#' @param dont_ask_me \code{bolean} by default is FALSE, if set to TRUE, avoids prompts due to excessive downloads to the R environment memory
+#' @param save_where \code{string} by default is "no", the possible values are "no","local","both", "no_warning".
 #' @param memory_warning_limit \code{numeric} by default is 900 mb, changes the data limit in warning megabytes to prevent excessive loading of the R environment memory
 #' @import purrr
 #' @export
@@ -103,7 +102,8 @@ if(any(save_where %in% c("no","both"))){
 #'
 
 
-get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL,col_list = NULL, save_where = c("no","local","both"), dont_ask_me = F ,memory_warning_limit=900) {
+get_many_data <- function(dataset, from = NULL, to = NULL,col_list = NULL, save_where = c("no","local","both", "no_warning") ,memory_warning_limit=900) {
+  versions = NULL
 
   save_where <- match.arg(save_where)
 
@@ -152,7 +152,7 @@ get_many_data <- function(dataset, from = NULL, to = NULL, versions = NULL,col_l
       dplyr::pull(version)
   }
 
-  if(save_where == "no" & dont_ask_me == F){
+  if(save_where == "no"){
   give_version_size_warning(dataset,versions,memory_warning_limit)
   }
 
