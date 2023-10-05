@@ -12,7 +12,8 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  message = FALSE
+  message = FALSE,
+  eval=FALSE
 )
 ```
 
@@ -22,6 +23,7 @@ library(dplyr)
 ```
 
 # Package Tutorial
+fadsmfdsmfmdsn
 
 The `inedata` package allows to download datasets produced by INE Chile. The package communicates with an API REST, which makes it possible to retrieve many household survey datasets using R code. All the available data provided by this API corresponds to  files published on INE's web site. 
 
