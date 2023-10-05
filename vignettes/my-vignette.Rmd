@@ -1,5 +1,5 @@
 ---
-title: "Testing"
+title: "Tutorial"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Tutorial}
@@ -25,6 +25,9 @@ library(dplyr)
 # Package Tutorial
 fadsmfdsmfmdsn
 sfdsfdsf<
+
+blof pero pero
+
 The `inedata` package allows to download datasets produced by INE Chile. The package communicates with an API REST, which makes it possible to retrieve many household survey datasets using R code. All the available data provided by this API corresponds to  files published on INE's web site. 
 
 At the moment the API is restricted to the institutional network. Because of that the package works only in this environment. We hope to make the API available to the general public as soon as possible.     
