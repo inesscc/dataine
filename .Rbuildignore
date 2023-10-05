@@ -1,9 +1,5 @@
-^.*\.Rproj$
-^\.Rproj\.user$
-^\.github$
-^README\.Rmd$
+^doc$
+^Meta$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
-^doc$
-^Meta$
