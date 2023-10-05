@@ -6,5 +6,6 @@
 inst/doc
 data/
 #docs
-/doc/
+#/doc/
 /Meta/
+/doc/
