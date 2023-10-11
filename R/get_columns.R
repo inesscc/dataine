@@ -1,7 +1,7 @@
 # ip <- "http://143.198.79.143:5003"
 # ip <- "http://127.0.0.1:8000"
- ip <- "http://10.90.10.46:7000"
-# ip <- "http://localhost:7000"
+# ip <- "http://10.90.10.46:7000"
+ ip <- "http://localhost:7000"
 
 #' Get columns of a specific dataset
 #' @param dataset \code{string}. The possible values are "ene", "epf_personas", "epf_gastos", "enusc" or "esi"
@@ -15,7 +15,11 @@ get_columns <- function(dataset, version) {
   assertthat::assert_that(is.character(version))
 
   # request
-  response <- httr::GET(paste0(ip, glue("/colnames/{dataset}/{version}") ))
+
+  response <- httr::GET(paste0(ip, glue("/colnames?dataset={dataset}&version={version}") ))
+
+  dataset=epf_gastos&version=viii
+
 
   if(response$status_code == 404){
     versiones_disponibles = get_catalog() %>% filter(survey == dataset) %>% pull(version)
