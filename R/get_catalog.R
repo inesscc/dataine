@@ -30,12 +30,14 @@ get_catalog <- function( dataset = c("full", "ene", "epf_personas", "epf_gastos"
   # Extract content from server answer
   json <- httr::content(request)
 
+
   # Convert to dataframe
   full_catalog <- jsonlite::fromJSON(json, simplifyVector = T) %>%
-    dplyr::arrange(desc(.data$survey)) %>%
+    dplyr::group_by(.data$survey) %>%
+    dplyr::arrange(desc(.data$version),.by_group = T) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(file_size_MB = file_size/1000**2) %>%
-    select(-file_size)
+    dplyr::select(-file_size)
 
   return(full_catalog)
 }
