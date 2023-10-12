@@ -330,13 +330,13 @@ enviroment.</li>
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, version <span class="op">=</span> <span class="va">file</span>, col_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ano_trimestre"</span>,<span class="st">"mes_central"</span>,<span class="st">"fact_cal"</span>,<span class="st">"cae_especifico"</span><span class="op">)</span>, save_where <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   cae_especifico ano_trimestre         fact_cal mes_central</span></span>
-<span><span class="co">#&gt; 1              1          2011 86,8648910010612           8</span></span>
-<span><span class="co">#&gt; 2              1          2011 112,560637427099           8</span></span>
-<span><span class="co">#&gt; 3              1          2011 103,559180372675           8</span></span>
-<span><span class="co">#&gt; 4              1          2011 87,3907172436076           8</span></span>
-<span><span class="co">#&gt; 5              1          2011  135,46894912875           8</span></span>
-<span><span class="co">#&gt; 6             13          2011 119,935658002151           8</span></span></code></pre></div>
+<span><span class="co">#&gt;   mes_central ano_trimestre         fact_cal cae_especifico</span></span>
+<span><span class="co">#&gt; 1           8          2011 86,8648910010612              1</span></span>
+<span><span class="co">#&gt; 2           8          2011 112,560637427099              1</span></span>
+<span><span class="co">#&gt; 3           8          2011 103,559180372675              1</span></span>
+<span><span class="co">#&gt; 4           8          2011 87,3907172436076              1</span></span>
+<span><span class="co">#&gt; 5           8          2011  135,46894912875              1</span></span>
+<span><span class="co">#&gt; 6           8          2011 119,935658002151             13</span></span></code></pre></div>
 <p>The <code><a href="../reference/get_many_data.html">get_many_data()</a></code> function allows to download more
 than one dataset at the same time. In this example we are getting the
 versions between december-january-february (2022-01-def) and

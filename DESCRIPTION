@@ -4,11 +4,7 @@ Title: What the Package Does (Title Case)
 Version: 0.1.0
 Author: Who wrote it
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: This package allows users to download datasets from the National Statistics Institute of Chile website.
-    The package has three main functions:
-    - Display the complete catalog of available datasets.
-    - Display the columns or variables of the chosen datasets.
-    - Download one or more datasets with the chosen columns or all of them.
+Description: This package allows users to download datasets from the National Statistics Institute of Chile website. The package has three main functions: - Display the complete catalog of available datasets. - Display the columns or variables of the chosen datasets. - Download one or more datasets with the chosen columns or all of them.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
