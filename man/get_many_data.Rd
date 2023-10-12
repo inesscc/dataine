@@ -4,7 +4,14 @@
 \alias{get_many_data}
 \title{Get multiple datasets}
 \usage{
-get_many_data(dataset, from = NULL, to = NULL, versions = NULL)
+get_many_data(
+  dataset,
+  from = NULL,
+  to = NULL,
+  col_list = NULL,
+  save_where = c("no", "local", "both", "no_warning"),
+  memory_warning_limit = 900
+)
 }
 \arguments{
 \item{dataset}{\code{string}}
@@ -13,11 +20,22 @@ get_many_data(dataset, from = NULL, to = NULL, versions = NULL)
 
 \item{to}{\code{string} specific version of any survey}
 
-\item{versions}{\code{character vector} with specific versions of any survey}
+\item{col_list}{\code{character vector} by default is all columns. The possible values can be obtained through the get_columns function}
+
+\item{save_where}{\code{string} by default is "no", the possible values are "no","local","both", "no_warning".}
+
+\item{memory_warning_limit}{\code{numeric} by default is 900 mb, changes the data limit in warning megabytes to prevent excessive loading of the R environment memory}
 }
 \value{
 \code{list} containing all the datasets between the from and to parameters
 }
 \description{
 Get multiple datasets
+}
+\examples{
+
+# Get all datasets from efm and mam quaters of ene survey
+
+get_many_data(dataset="ene", from="2022-08-jas", to="2022-10-son", col_list=c("ano_trimestre","mes_central","fact_cal","ocup_form"))
+
 }

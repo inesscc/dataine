@@ -1,19 +1,33 @@
+ip <- "http://localhost:90"
 #' Download a dataset from the API INE service
-#' @param dataset \code{string}. The possible values are "ene", "epf_personas", "epf_gastos", "enusc" or "esi"
-#' @param version \code{string} by default is the newest version
+#' @param dataset \code{string}. The possible values are "ene", "epf_personas", "epf_gastos", "enusc" or "esi".
+#' @param version \code{string} by default is the newest version.
+#' @param col_list \code{character vector} by default is all columns. The possible values can be obtained through the get_columns function.
+#' @export
 #' @param save_where \code{string} by default is "no", the possible values are "no","local","both","no_warning".
 #' @import glue
 #' @import assertthat
 #' @import xml2
 #' @export
 #' @return \code{dataframe}
-
+#' @examples
+#' # Get dataset of "ene" survey from september-november-october 2020 quarter and selecting columns
+#'
+#' get_data(dataset="ene", version="2022-10-son", col_list=c("region","cae_general","fact_cal"))
+#'
 
 get_data <- function(dataset, version = NULL, col_list = NULL, save_where = c("no","local","both","no_warning")) {
 
   save_where = match.arg(save_where)
 
   match.arg(dataset, c("ene", "epf_personas", "epf_gastos", "enusc", "esi"))
+
+  # Check lenght of col_list
+  if(length(col_list) == 1) {
+
+    col_list <- list(col_list[1])
+
+  }
 
   # Validate version
   if (!is.null(version) && validate_version(dataset, version) == FALSE) {
@@ -92,13 +106,17 @@ if(any(save_where %in% c("no","both"))){
 #' @param dataset \code{string}
 #' @param from \code{string} specific version of any survey
 #' @param to \code{string} specific version of any survey
-#' @param versions \code{character vector} with specific versions of any survey
+#' @param col_list \code{character vector} by default is all columns. The possible values can be obtained through the get_columns function
 #' @param save_where \code{string} by default is "no", the possible values are "no","local","both", "no_warning".
 #' @param memory_warning_limit \code{numeric} by default is 900 mb, changes the data limit in warning megabytes to prevent excessive loading of the R environment memory
 #' @import purrr
 #' @export
 #' @return \code{list} containing all the datasets between the from and to parameters
+#' @examples
 #'
+#' # Get all datasets from efm and mam quaters of ene survey
+#'
+#' get_many_data(dataset="ene", from="2022-08-jas", to="2022-10-son", col_list=c("ano_trimestre","mes_central","fact_cal","ocup_form"))
 #'
 
 

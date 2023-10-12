@@ -23,7 +23,7 @@ test_that("get_data returns right error when version doesn't exist", {
 enusc = get_data("enusc", "2017")
 
 test_that("testing that data is not saved locally",{
-expect_equal(length(list.files(path = "data/", pattern = "enusc_2020.rds")),0)
+expect_equal(length(list.files(path = "data/", pattern = "enusc_2017.rds")),0)
 })
 
 rm(enusc)
@@ -316,6 +316,11 @@ test_that("get_many_data is throwing an error when user inputs an invalid versio
   expect_error(get_many_data("ene", version = c("no_existe")), "Some of the versions in your vector are invalid")
 })
 
+enusc <- get_data("enusc","2017","P1_1_1")
+
+test_that("get_data with one column", {
+  expect_equal(names(enusc), c("P1_1_1"))
+})
 
 
 
