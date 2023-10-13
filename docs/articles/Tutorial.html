@@ -214,129 +214,86 @@ specified then it will return the newest version of the survey.</p>
 <span><span class="co"># Get newest version</span></span>
 <span><span class="va">ene2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span><span class="op">)</span> </span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ene</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ene</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   index ano_trimestre mes_central ano_encuesta mes_encuesta region provincia</span></span>
 <span><span class="co">#&gt; 1     0          2011           8         2011            9      8        82</span></span>
 <span><span class="co">#&gt; 2     1          2011           8         2011            9      8        82</span></span>
 <span><span class="co">#&gt; 3     2          2011           8         2011            9      6        63</span></span>
-<span><span class="co">#&gt; 4     3          2011           8         2011            9      6        63</span></span>
-<span><span class="co">#&gt; 5     4          2011           8         2011            9      7        74</span></span>
-<span><span class="co">#&gt; 6     5          2011           8         2011            9      7        74</span></span>
 <span><span class="co">#&gt;   r_p_c estrato region_15 estrato_15 r_p_c_15 tipo id_directorio</span></span>
 <span><span class="co">#&gt; 1  8207    8129         8       8129     8207    3          4161</span></span>
 <span><span class="co">#&gt; 2  8207    8129         8       8129     8207    3          4161</span></span>
 <span><span class="co">#&gt; 3  6303    6042         6       6042     6303    2          5148</span></span>
-<span><span class="co">#&gt; 4  6303    6042         6       6042     6303    2          5148</span></span>
-<span><span class="co">#&gt; 5  7406    7099         7       7099     7406    3          6436</span></span>
-<span><span class="co">#&gt; 6  7406    7099         7       7099     7406    3          6436</span></span>
 <span><span class="co">#&gt;   id_identificacion hogar idrph nro_linea edad tramo_edad sexo parentesco curso</span></span>
 <span><span class="co">#&gt; 1              4565     1 17204         1   66       11.0    1          1     3</span></span>
 <span><span class="co">#&gt; 2              4588     1 17291         1   43        6.0    1          1     5</span></span>
 <span><span class="co">#&gt; 3             16431     1 61955         1   40        6.0    1          1     4</span></span>
-<span><span class="co">#&gt; 4             16490     1 62219         1   67       11.0    2          1     3</span></span>
-<span><span class="co">#&gt; 5             21353     1 80410         1   58        9.0    1          1     2</span></span>
-<span><span class="co">#&gt; 6             21353     1 80417         2   56        9.0    2          2     5</span></span>
-<span><span class="co">#&gt;   nivel termino_nivel cine est_conyugal proveedor nacionalidad  a1  a2  a3 a4</span></span>
-<span><span class="co">#&gt; 1     3             2    3            1         0          152 1.0     1.0   </span></span>
-<span><span class="co">#&gt; 2     3             2    3            2         0          152 1.0     1.0   </span></span>
-<span><span class="co">#&gt; 3     4             1    5            1         1          152 1.0     1.0   </span></span>
-<span><span class="co">#&gt; 4     3             2    3            4         1          152 1.0     1.0   </span></span>
-<span><span class="co">#&gt; 5     3             2    3            1         1          152 1.0     1.0   </span></span>
-<span><span class="co">#&gt; 6     3             2    3            1         0          152 2.0 2.0       </span></span>
-<span><span class="co">#&gt;    a5 a6 a6_otro a7 a8 b1_ciuo88  b2 b3  b4  b5 b6 b7_1 b7_2 b7_3 b7_4 b7_5</span></span>
-<span><span class="co">#&gt; 1                            6.0 1.0    2.0                                </span></span>
-<span><span class="co">#&gt; 2                            6.0 1.0    2.0                                </span></span>
-<span><span class="co">#&gt; 3                            9.0 2.0        2.0     1.0  1.0  1.0  1.0  1.0</span></span>
-<span><span class="co">#&gt; 4                            9.0 1.0    2.0                                </span></span>
-<span><span class="co">#&gt; 5                            9.0 2.0        2.0     1.0  1.0  1.0  1.0  1.0</span></span>
-<span><span class="co">#&gt; 6 2.0                                                                      </span></span>
-<span><span class="co">#&gt;   b7_6 b7_7  b8  b9 b10 b11 b12 b13_ciiu_rev3 b14_ciiu_rev3 b15_1 b15_2 b16</span></span>
-<span><span class="co">#&gt; 1                                                       1.0   1.0   1.0 4.0</span></span>
-<span><span class="co">#&gt; 2                                                       1.0   1.0   1.0 4.0</span></span>
-<span><span class="co">#&gt; 3  3.0  2.0 1.0 2.0     2.0 1.0                         6.0   4.0       7.0</span></span>
-<span><span class="co">#&gt; 4                                                       7.0   1.0   1.0 6.0</span></span>
-<span><span class="co">#&gt; 5  1.0  2.0 1.0 2.0     2.0 1.0                         1.0   3.0       8.0</span></span>
-<span><span class="co">#&gt; 6                                                                          </span></span>
-<span><span class="co">#&gt;   b16_otro b17_mes b17_ano b18_codigo b18_region b18_varias b19  c1 c2_1_1</span></span>
-<span><span class="co">#&gt; 1             99.0  1965.0     8207.0        8.0        2.0 2.0 1.0    8.0</span></span>
-<span><span class="co">#&gt; 2             99.0  1990.0     8207.0        8.0        2.0 2.0 2.0    3.0</span></span>
-<span><span class="co">#&gt; 3              3.0  2008.0     6101.0        6.0        2.0 2.0 1.0  999.0</span></span>
-<span><span class="co">#&gt; 4              1.0  2006.0     6303.0        6.0        2.0 2.0 1.0    7.0</span></span>
-<span><span class="co">#&gt; 5              9.0  2010.0     7406.0        7.0        2.0 2.0 1.0  999.0</span></span>
-<span><span class="co">#&gt; 6                                                                         </span></span>
-<span><span class="co">#&gt;   c2_1_2 c2_1_3 c2_2_1 c2_2_2 c2_2_3  c3_1 c3_2 c3_3 c4  c5 c6  c7  c8  c9 c10</span></span>
-<span><span class="co">#&gt; 1    7.0   56.0                                         2.0    2.0         1.0</span></span>
-<span><span class="co">#&gt; 2    7.0   21.0                                         2.0    1.0 3.0 1.0 1.0</span></span>
-<span><span class="co">#&gt; 3    6.0   45.0                      999.0  6.0 45.0    2.0    2.0         2.0</span></span>
-<span><span class="co">#&gt; 4    3.0   21.0                                         2.0    2.0         1.0</span></span>
-<span><span class="co">#&gt; 5    6.0   45.0                      999.0  6.0 45.0    2.0    2.0         2.0</span></span>
-<span><span class="co">#&gt; 6                                                                             </span></span>
-<span><span class="co">#&gt;   c11 c12 c13 habituales efectivas  e1  e2 e3_1 e3_2 e3_3 e3_4 e3_5 e3_6 e3_7</span></span>
-<span><span class="co">#&gt; 1 1.0 1.0           56.0      56.0     2.0                                   </span></span>
-<span><span class="co">#&gt; 2 1.0 6.0           21.0      18.0     2.0                                   </span></span>
-<span><span class="co">#&gt; 3         2.0       45.0      45.0     2.0                                   </span></span>
-<span><span class="co">#&gt; 4 4.0 4.0           21.0      21.0     2.0                                   </span></span>
-<span><span class="co">#&gt; 5         2.0       45.0      45.0     2.0                                   </span></span>
-<span><span class="co">#&gt; 6                                  2.0 2.0                                   </span></span>
-<span><span class="co">#&gt;   e3_8 e3_9 e3_10 e3_11 e3_12 e3_total e4 e5 e5_dia e5_sem e5_mes e5_ano e6_mes</span></span>
-<span><span class="co">#&gt; 1                                  0.0                                         </span></span>
-<span><span class="co">#&gt; 2                                  0.0                                         </span></span>
-<span><span class="co">#&gt; 3                                  0.0                                         </span></span>
-<span><span class="co">#&gt; 4                                  0.0                                         </span></span>
-<span><span class="co">#&gt; 5                                  0.0                                         </span></span>
-<span><span class="co">#&gt; 6                                  0.0                                         </span></span>
-<span><span class="co">#&gt;   e6_ano e7 e8  e9 e10 e11 e12 e13 e14_mes e14_ano e15_meses e15_anos</span></span>
-<span><span class="co">#&gt; 1                                                                    </span></span>
-<span><span class="co">#&gt; 2                                                                    </span></span>
-<span><span class="co">#&gt; 3                                                                    </span></span>
-<span><span class="co">#&gt; 4                                                                    </span></span>
-<span><span class="co">#&gt; 5                                                                    </span></span>
-<span><span class="co">#&gt; 6              3.0     2.0 4.0 1.0     3.0  2007.0      99.0     15.0</span></span>
-<span><span class="co">#&gt;   e16_ciuo88 e17 e18_ciiu_rev3  e19 e19_otro activ obe tpi  id ftp cae_general</span></span>
-<span><span class="co">#&gt; 1                                              1.0 0.0 0.0                   1</span></span>
-<span><span class="co">#&gt; 2                                              1.0 0.0 1.0                   1</span></span>
-<span><span class="co">#&gt; 3                                              1.0 0.0 0.0                   1</span></span>
-<span><span class="co">#&gt; 4                                              1.0 0.0 0.0                   1</span></span>
-<span><span class="co">#&gt; 5                                              1.0 0.0 0.0                   1</span></span>
-<span><span class="co">#&gt; 6        9.0 6.0          16.0 12.0            3.0         0.0 0.0           9</span></span>
-<span><span class="co">#&gt;   cae_especifico categoria_ocupacion         fact         fact_cal</span></span>
-<span><span class="co">#&gt; 1              1                   2 105,77030411 86,8648910010612</span></span>
-<span><span class="co">#&gt; 2              1                   2 105,77030411 112,560637427099</span></span>
-<span><span class="co">#&gt; 3              1                   3  80,47339832 103,559180372675</span></span>
-<span><span class="co">#&gt; 4              1                   2  71,19197699 87,3907172436076</span></span>
-<span><span class="co">#&gt; 5              1                   3 152,89220539  135,46894912875</span></span>
-<span><span class="co">#&gt; 6             13                   0 146,97764781 119,935658002151</span></span></code></pre></div>
+<span><span class="co">#&gt;   nivel termino_nivel cine est_conyugal proveedor nacionalidad  a1 a2  a3 a4 a5</span></span>
+<span><span class="co">#&gt; 1     3             2    3            1         0          152 1.0    1.0      </span></span>
+<span><span class="co">#&gt; 2     3             2    3            2         0          152 1.0    1.0      </span></span>
+<span><span class="co">#&gt; 3     4             1    5            1         1          152 1.0    1.0      </span></span>
+<span><span class="co">#&gt;   a6 a6_otro a7 a8 b1_ciuo88  b2 b3  b4  b5 b6 b7_1 b7_2 b7_3 b7_4 b7_5 b7_6</span></span>
+<span><span class="co">#&gt; 1                        6.0 1.0    2.0                                     </span></span>
+<span><span class="co">#&gt; 2                        6.0 1.0    2.0                                     </span></span>
+<span><span class="co">#&gt; 3                        9.0 2.0        2.0     1.0  1.0  1.0  1.0  1.0  3.0</span></span>
+<span><span class="co">#&gt;   b7_7  b8  b9 b10 b11 b12 b13_ciiu_rev3 b14_ciiu_rev3 b15_1 b15_2 b16 b16_otro</span></span>
+<span><span class="co">#&gt; 1                                                  1.0   1.0   1.0 4.0         </span></span>
+<span><span class="co">#&gt; 2                                                  1.0   1.0   1.0 4.0         </span></span>
+<span><span class="co">#&gt; 3  2.0 1.0 2.0     2.0 1.0                         6.0   4.0       7.0         </span></span>
+<span><span class="co">#&gt;   b17_mes b17_ano b18_codigo b18_region b18_varias b19  c1 c2_1_1 c2_1_2 c2_1_3</span></span>
+<span><span class="co">#&gt; 1    99.0  1965.0     8207.0        8.0        2.0 2.0 1.0    8.0    7.0   56.0</span></span>
+<span><span class="co">#&gt; 2    99.0  1990.0     8207.0        8.0        2.0 2.0 2.0    3.0    7.0   21.0</span></span>
+<span><span class="co">#&gt; 3     3.0  2008.0     6101.0        6.0        2.0 2.0 1.0  999.0    6.0   45.0</span></span>
+<span><span class="co">#&gt;   c2_2_1 c2_2_2 c2_2_3  c3_1 c3_2 c3_3 c4  c5 c6  c7  c8  c9 c10 c11 c12 c13</span></span>
+<span><span class="co">#&gt; 1                                         2.0    2.0         1.0 1.0 1.0    </span></span>
+<span><span class="co">#&gt; 2                                         2.0    1.0 3.0 1.0 1.0 1.0 6.0    </span></span>
+<span><span class="co">#&gt; 3                      999.0  6.0 45.0    2.0    2.0         2.0         2.0</span></span>
+<span><span class="co">#&gt;   habituales efectivas e1  e2 e3_1 e3_2 e3_3 e3_4 e3_5 e3_6 e3_7 e3_8 e3_9</span></span>
+<span><span class="co">#&gt; 1       56.0      56.0    2.0                                             </span></span>
+<span><span class="co">#&gt; 2       21.0      18.0    2.0                                             </span></span>
+<span><span class="co">#&gt; 3       45.0      45.0    2.0                                             </span></span>
+<span><span class="co">#&gt;   e3_10 e3_11 e3_12 e3_total e4 e5 e5_dia e5_sem e5_mes e5_ano e6_mes e6_ano e7</span></span>
+<span><span class="co">#&gt; 1                        0.0                                                   </span></span>
+<span><span class="co">#&gt; 2                        0.0                                                   </span></span>
+<span><span class="co">#&gt; 3                        0.0                                                   </span></span>
+<span><span class="co">#&gt;   e8 e9 e10 e11 e12 e13 e14_mes e14_ano e15_meses e15_anos e16_ciuo88 e17</span></span>
+<span><span class="co">#&gt; 1                                                                        </span></span>
+<span><span class="co">#&gt; 2                                                                        </span></span>
+<span><span class="co">#&gt; 3                                                                        </span></span>
+<span><span class="co">#&gt;   e18_ciiu_rev3 e19 e19_otro activ obe tpi id ftp cae_general cae_especifico</span></span>
+<span><span class="co">#&gt; 1                              1.0 0.0 0.0                  1              1</span></span>
+<span><span class="co">#&gt; 2                              1.0 0.0 1.0                  1              1</span></span>
+<span><span class="co">#&gt; 3                              1.0 0.0 0.0                  1              1</span></span>
+<span><span class="co">#&gt;   categoria_ocupacion         fact         fact_cal</span></span>
+<span><span class="co">#&gt; 1                   2 105,77030411 86,8648910010612</span></span>
+<span><span class="co">#&gt; 2                   2 105,77030411 112,560637427099</span></span>
+<span><span class="co">#&gt; 3                   3  80,47339832 103,559180372675</span></span></code></pre></div>
 <p>With <code>col_list</code> we can select some of the variables in the
 dataset, if not specified it will select all columns. Meanwhile,
 <code>save_where</code> allows us to define where the dataset will be
-stored. There are four options:</p>
-<ul>
-<li>
-<strong>no</strong>: store in the memory of R enviroment. If the
-size overloads the ram memory it will show a warning and a prompt
-recommending to save the data in the working directory and asking if the
-user wants to proceed.</li>
-<li>
-<strong>local</strong>: store in a directory called <em>data/</em>
-in the working directory, but not in the R enviroment.</li>
-<li>
-<strong>both</strong>: store in both parts.</li>
-<li>
-<strong>no_warning</strong>: under the users responsibility, it will
-not show the warning and the datasets will be stored in R
-enviroment.</li>
-</ul>
+stored. There are four options: * <strong>no</strong>: store in the
+memory of R enviroment. If the size overloads the ram memory it will
+show a warning and a prompt recommending to save the data in the working
+directory and asking if the user wants to proceed. *
+<strong>local</strong>: store in a directory called <em>data/</em> in
+the working directory, but not in the R enviroment. *
+<strong>both</strong>: store in both parts. *
+<strong>no_warning</strong>: under the users responsibility, it will not
+show the warning and the datasets will be stored in R enviroment.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, version <span class="op">=</span> <span class="va">file</span>, col_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ano_trimestre"</span>,<span class="st">"mes_central"</span>,<span class="st">"fact_cal"</span>,<span class="st">"cae_especifico"</span><span class="op">)</span>, save_where <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   mes_central ano_trimestre         fact_cal cae_especifico</span></span>
-<span><span class="co">#&gt; 1           8          2011 86,8648910010612              1</span></span>
-<span><span class="co">#&gt; 2           8          2011 112,560637427099              1</span></span>
-<span><span class="co">#&gt; 3           8          2011 103,559180372675              1</span></span>
-<span><span class="co">#&gt; 4           8          2011 87,3907172436076              1</span></span>
-<span><span class="co">#&gt; 5           8          2011  135,46894912875              1</span></span>
-<span><span class="co">#&gt; 6           8          2011 119,935658002151             13</span></span></code></pre></div>
+<span><span class="co">#&gt;   ano_trimestre mes_central cae_especifico         fact_cal</span></span>
+<span><span class="co">#&gt; 1          2011           8              1 86,8648910010612</span></span>
+<span><span class="co">#&gt; 2          2011           8              1 112,560637427099</span></span>
+<span><span class="co">#&gt; 3          2011           8              1 103,559180372675</span></span>
+<span><span class="co">#&gt; 4          2011           8              1 87,3907172436076</span></span>
+<span><span class="co">#&gt; 5          2011           8              1  135,46894912875</span></span>
+<span><span class="co">#&gt; 6          2011           8             13 119,935658002151</span></span></code></pre></div>
+<p><strong>Important note:</strong> we highly recommend against
+downloading the entire dataset. Instead, consider selecting specific
+columns, as the full download could consume a substantial amount of time
+and storage space.</p>
 <p>The <code><a href="../reference/get_many_data.html">get_many_data()</a></code> function allows to download more
 than one dataset at the same time. In this example we are getting the
 versions between december-january-february (2022-01-def) and

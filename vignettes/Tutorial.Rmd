@@ -75,11 +75,10 @@ ene <-  get_data(dataset = "ene", version = file)
 ene2 <- get_data(dataset = "ene") 
 ```
 ```{r, eval=TRUE}
-ene %>% head()
+ene %>% head(3)
 ```
 
-With `col_list` we can select some of the variables in the dataset, if not specified it will select all columns. Meanwhile, `save_where` allows us to define where the dataset will be stored. There are four options:  
-
+With `col_list` we can select some of the variables in the dataset, if not specified it will select all columns. Meanwhile, `save_where` allows us to define where the dataset will be stored. There are four options:
 * **no**: store in the memory of R enviroment. If the size overloads the ram memory it will show a warning and a prompt recommending to save the data in the working directory and asking if the user wants to proceed.
 * **local**: store in a directory called *data/* in the working directory, but not in the R enviroment.
 * **both**: store in both parts.
@@ -91,6 +90,8 @@ ene_small <- get_data(dataset = "ene", version = file, col_list = c("ano_trimest
 ```{r}
 ene_small %>% head()
 ```
+
+**Important note:** we highly recommend against downloading the entire dataset. Instead, consider selecting specific columns, as the full download could consume a substantial amount of time and storage space. 
 
 The `get_many_data()` function allows to download more than one dataset at the same time. In this example we are getting the versions between december-january-february (2022-01-def) and february-march-april (2022-03-fma) 2022 quarters of the *ene* survey.   
 The function has six parameters: `dataset`, `from`, `to`, `col_list`, `save_where`, `memory_warning_limit`.
