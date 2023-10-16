@@ -3,8 +3,7 @@
 #' @param dataset \code{string}. The possible values are "ene", "epf_personas", "epf_gastos", "enusc" or "esi".
 #' @param version \code{string} by default is the newest version.
 #' @param col_list \code{character vector} by default is all columns. The possible values can be obtained through the get_columns function.
-#' @export
-#' @param save_where \code{string} by default is "no", the possible values are "no","local","both","no_warning".
+#' @param save_where \code{string} by default is "renviron", the possible values are "renviron","disk","both","no_message".
 #' @import glue
 #' @import assertthat
 #' @import xml2
@@ -16,7 +15,7 @@
 #' get_data(dataset="ene", version="2022-10-son", col_list=c("region","cae_general","fact_cal"))
 #'
 
-get_data <- function(dataset, version = NULL, col_list = NULL, save_where = c("no","local","both","no_warning")) {
+get_data <- function(dataset, version = NULL, col_list = NULL, save_where = c("renviron","disk","both","no_message")) {
 
   save_where = match.arg(save_where)
 
@@ -77,7 +76,7 @@ rlang::inform(glue("Please wait..."))
  # print(glue("download {i} from {n_version}"))
 
 ### if save local
-  if(any(save_where %in% c("local","both"))){
+  if(any(save_where %in% c("disk","both"))){
 
   save_data  =  data$content %>% RcppSimdJson::fparse() %>% RcppSimdJson::fparse()
 
@@ -92,9 +91,8 @@ rlang::inform(glue("Please wait..."))
 
   }
 
-if(any(save_where %in% c("no","both"))){
+if(any(save_where %in% c("renviron","both","no_message"))){
   return(df)
-
 }else{
   rlang::inform(glue("The dataset was save in folder 'data' as: '{dataset}_{version}.rds'"))
 
@@ -107,7 +105,8 @@ if(any(save_where %in% c("no","both"))){
 #' @param from \code{string} specific version of any survey
 #' @param to \code{string} specific version of any survey
 #' @param col_list \code{character vector} by default is all columns. The possible values can be obtained through the get_columns function
-#' @param save_where \code{string} by default is "no", the possible values are "no","local","both", "no_warning".
+#' @param versions \code{character vector} with specific versions of any survey
+#' @param save_where \code{string} by default is "renviron", the possible values are "renviron","disk","both", "no_message".
 #' @param memory_warning_limit \code{numeric} by default is 900 mb, changes the data limit in warning megabytes to prevent excessive loading of the R environment memory
 #' @import purrr
 #' @export
@@ -120,7 +119,7 @@ if(any(save_where %in% c("no","both"))){
 #'
 
 
-get_many_data <- function(dataset, from = NULL, to = NULL,col_list = NULL, save_where = c("no","local","both", "no_warning") ,memory_warning_limit=900) {
+get_many_data <- function(dataset, from = NULL, to = NULL,col_list = NULL, save_where = c("renviron","disk","both", "no_message"), memory_warning_limit=900) {
   versions = NULL
 
   save_where <- match.arg(save_where)
@@ -170,11 +169,11 @@ get_many_data <- function(dataset, from = NULL, to = NULL,col_list = NULL, save_
       dplyr::pull(version)
   }
 
-  if(save_where == "no"){
+  if(save_where == "renviron"){
   give_version_size_warning(dataset,versions,memory_warning_limit)
   }
 
-  if(save_where %in% c("local","both")){
+  if(save_where %in% c("disk","both")){
 
     if(dir.exists("data/")==F){
       dir.create("data/")
