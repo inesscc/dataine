@@ -20,7 +20,7 @@ test_that("get_data returns right error when version doesn't exist", {
 })
 
 #### get data no save localy ####
-enusc = get_data("enusc", "2017")
+enusc = get_data("enusc", "2020")
 
 test_that("testing that data is not saved locally",{
 expect_equal(length(list.files(path = "data/", pattern = "enusc_2020.rds")),0)
@@ -32,14 +32,14 @@ rm(enusc)
 
 unlink("data/",recursive = T,force = T)
 
+jue =  get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "disk", col_list = c("sexo","parentesco","curso"))
 
-jue =  get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "local")
 
-# jue = get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "local", dont_ask_me = T,memory_warning_limit = 10)
+# jue = get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "disk", dont_ask_me = T,memory_warning_limit = 10)
 
 
 test_that("Expect to create a file in working directory",{
-expect_equal(list.files(path = "data/", pattern = "enusc_2020.rds"),"enusc_2020.rds")
+expect_equal(list.files(path = "data/", pattern = "ene_2010-02-efm.rds"),"ene_2010-02-efm.rds")
 })
 
 unlink("data", force = T, recursive = T)
@@ -48,7 +48,7 @@ unlink("data", force = T, recursive = T)
 
 unlink("data", force = T, recursive = T)
 
-datos = get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "both",memory_warning_limit = 10)
+datos = get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "both",memory_warning_limit = 10, col_list = c("sexo","parentesco","curso"))
 
 test_that("Expect to create a file in working directory",{
   expect_equal(list.files(path = "data/", pattern = "ene_2010-02-efm.rds"),"ene_2010-02-efm.rds")
@@ -62,37 +62,24 @@ test_that("Expect object with in R enviroment",{
 rm(datos)
 unlink("data", force = T, recursive = T)
 
-### no warning
+### no message
 
-
-datos = get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "no_warning",memory_warning_limit = 10)
+datos = get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "no_message",memory_warning_limit = 10, col_list = c("sexo","parentesco","curso"))
 
 ### Manualy prompt testing save local with many data ####
 
 # l_ene <- get_many_data(dataset = "ene",from = "2010-02-efm", to = "2010-05-amj")
 #
 ## in local
-# l_ene <- get_many_data(dataset = "ene",from = "2010-02-efm", to = "2010-03-fma",save_where = "local")
+# l_ene <- get_many_data(dataset = "ene",from = "2010-02-efm", to = "2010-03-fma",save_where = "disk")
 #
 #### testing resume download all again with prompt
-# l_ene <- get_many_data(dataset = "ene",from = "2010-02-efm", to = "2010-03-fma",save_where = "local")
+# l_ene <- get_many_data(dataset = "ene",from = "2010-02-efm", to = "2010-03-fma",save_where = "disk")
 #
 # ### testing resume download all again with some new files
-# l_ene <- get_many_data(dataset = "ene",from = "2010-02-efm", to = "2010-05-amj",save_where = "local")
+# l_ene <- get_many_data(dataset = "ene",from = "2010-02-efm", to = "2010-05-amj",save_where = "disk")
 #
 ## l_ene <- get_many_data(dataset = "ene",from = "2010-02-efm", to = "2010-05-amj",save_where = "both")
-
-
-### testing save local with many data ####
-
-test_that("get_many_data returns the right number of datasets between two points, setting 'dont_ask_me' == T, for avoid prompt", {
-  expect_equal(length(get_many_data("ene",  from = "2010-02-efm", to = "2010-05-amj",dont_ask_me = T,memory_warning_limit = 10)), 4  )
-})
-
-
-get_many_data("ene",versions = c("2010-02-efm","2010-03-fma","2010-04-mam"))
-
-
 
 
 ### testing internal resume download ####
@@ -238,11 +225,6 @@ resume_download <- function(dataset,version){
 }
 
 
-
-
-
-
-
 ########################
 # get specific columns #
 ########################
@@ -292,6 +274,7 @@ test_that(" get_data, returns specific cols 'col_list' parameter",{
 test_that("get_many_data returns the right number of datasets between two points", {
   expect_equal(length(get_many_data("ene",  from = "2021-12-nde", to = "2022-05-amj")), 6  )
 })
+
 
 test_that("get_many_data returns all the datasets between two points", {
   expect_equal(names(get_many_data("ene",  from = "2021-12-nde", to = "2022-05-amj")),
