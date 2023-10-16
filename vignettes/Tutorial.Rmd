@@ -27,6 +27,15 @@ The `inedata` package allows to download datasets produced by INE Chile. The pac
 
 At the moment the API is restricted to the institutional network. Because of that the package works only in this environment. We hope to make the API available to the general public as soon as possible.     
 
+## First steps
+
+At the moment the package can be installed from github using devtools.  
+
+```{r, eval=FALSE}
+devtools::install_github("inesscc/dataine")
+```
+
+
 
 ## Getting catalog
 
