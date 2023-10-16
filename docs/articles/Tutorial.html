@@ -270,26 +270,35 @@ specified then it will return the newest version of the survey.</p>
 <p>With <code>col_list</code> we can select some of the variables in the
 dataset, if not specified it will select all columns. Meanwhile,
 <code>save_where</code> allows us to define where the dataset will be
-stored. There are four options: * <strong>no</strong>: store in the
-memory of R enviroment. If the size overloads the ram memory it will
-show a warning and a prompt recommending to save the data in the working
-directory and asking if the user wants to proceed. *
-<strong>local</strong>: store in a directory called <em>data/</em> in
-the working directory, but not in the R enviroment. *
-<strong>both</strong>: store in both parts. *
-<strong>no_warning</strong>: under the users responsibility, it will not
-show the warning and the datasets will be stored in R enviroment.</p>
+stored. There are four options:</p>
+<ul>
+<li>
+<strong>no</strong>: store in the memory of R enviroment. If the
+size overloads the ram memory it will show a warning and a prompt
+recommending to save the data in the working directory and asking if the
+user wants to proceed.<br>
+</li>
+<li>
+<strong>local</strong>: store in a directory called <em>data/</em>
+in the working directory, but not in the R enviroment.</li>
+<li>
+<strong>both</strong>: store in both parts.</li>
+<li>
+<strong>no_warning</strong>: under the users responsibility, it will
+not show the warning and the datasets will be stored in R
+enviroment.</li>
+</ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, version <span class="op">=</span> <span class="va">file</span>, col_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ano_trimestre"</span>,<span class="st">"mes_central"</span>,<span class="st">"fact_cal"</span>,<span class="st">"cae_especifico"</span><span class="op">)</span>, save_where <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   ano_trimestre mes_central cae_especifico         fact_cal</span></span>
-<span><span class="co">#&gt; 1          2011           8              1 86,8648910010612</span></span>
-<span><span class="co">#&gt; 2          2011           8              1 112,560637427099</span></span>
-<span><span class="co">#&gt; 3          2011           8              1 103,559180372675</span></span>
-<span><span class="co">#&gt; 4          2011           8              1 87,3907172436076</span></span>
-<span><span class="co">#&gt; 5          2011           8              1  135,46894912875</span></span>
-<span><span class="co">#&gt; 6          2011           8             13 119,935658002151</span></span></code></pre></div>
+<span><span class="co">#&gt;           fact_cal ano_trimestre mes_central cae_especifico</span></span>
+<span><span class="co">#&gt; 1 86,8648910010612          2011           8              1</span></span>
+<span><span class="co">#&gt; 2 112,560637427099          2011           8              1</span></span>
+<span><span class="co">#&gt; 3 103,559180372675          2011           8              1</span></span>
+<span><span class="co">#&gt; 4 87,3907172436076          2011           8              1</span></span>
+<span><span class="co">#&gt; 5  135,46894912875          2011           8              1</span></span>
+<span><span class="co">#&gt; 6 119,935658002151          2011           8             13</span></span></code></pre></div>
 <p><strong>Important note:</strong> we highly recommend against
 downloading the entire dataset. Instead, consider selecting specific
 columns, as the full download could consume a substantial amount of time
