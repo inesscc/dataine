@@ -17,6 +17,6 @@ test_that("get_catalog throws right error", {
 # test reques with "full"
 
 test_that("get_catalog request all available surveys",{
-  expect_equal(unique(get_catalog()$survey),c("esi","epf_personas","epf_gastos","enusc","ene"))
+  expect_equal(unique(get_catalog()$survey),c("ene","enusc","epf_gastos","epf_personas","esi"))
 })
 

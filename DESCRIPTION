@@ -1,11 +1,13 @@
 Package: inedata
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Inedata
 Version: 0.1.0
 Author: Who wrote it
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: This package allows users to download datasets from the National Statistics Institute of Chile website.
+    The package has three main functions: 
+    1) display the complete catalog of available datasets, 2) display the columns or variables of the chosen datasets and
+    3) download one or more datasets with the chosen columns or all of them.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

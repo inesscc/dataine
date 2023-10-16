@@ -1,5 +1,5 @@
 ---
-title: "Tutorial"
+title: "Testing"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Tutorial}
@@ -12,123 +12,156 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  message = FALSE,
-  eval=FALSE
+  message = FALSE
 )
 ```
 
-```{r setup}
+```{r setup, include = FALSE}
 library(inedata)
 library(dplyr)
 ```
 
 # Package Tutorial
-fadsmfdsmfmdsn
-sfdsfdsf<
 
-blof pero pero
-klasdjkaskdjdafkjdsfk
-The `inedata` package allows to download datasets produced by INE Chile. The package communicates with an API REST, which makes it possible to retrieve many household survey datasets using R code. All the available data provided by this API corresponds to  files published on INE's web site. 
+The `inedata` package allows to download datasets produced by INE Chile. The package communicates with an API REST, which makes it possible to retrieve many household survey datasets using R code. All the available data provided by this API corresponds to files published on INE's web site. 
 
 At the moment the API is restricted to the institutional network. Because of that the package works only in this environment. We hope to make the API available to the general public as soon as possible.     
 
 
 ## Getting catalog
 
-`get_catalog()` returns a dataframe containing all the datasets available in the repository. It also adds summary data in the form of number of columns and rows per dataset (in the *n_col* and *n_row* columns, respectively). The *survey* column contains the survey where the dataset comes from. The *version* column indicates the year or quarter when the dataset was collected.      
+`get_catalog()` returns a dataframe containing all the datasets available in the repository and its versions when the `dataset` parameter is not specified. The following datasets are currently available:  
+
+* *EPF*
+* *ENUSC*
+* *ESI*
+* *ENE*
+
+It also adds summary data in the form of number of columns and rows per dataset (in the *n_col* and *n_row* columns, respectively). The *survey* column contains the survey where the dataset comes from. The *version* column indicates the year or quarter when the dataset was collected.       
 
 ```{r}
 get_catalog()
 ```
-
-The `dataset` parameter retrieves information for a specific survey. In this example we are using *ene*, which returns all the available versions for that survey. We will store the first file in a variable called `file`.  
+The `dataset` parameter retrieves information for a specific survey. In this example we are using *ene*, which returns all the available versions for that survey. We will store the file version for the june-august-september quarter of 2011 (2011-08-jas) in a variable called `file`.
 
 ```{r}
 get_catalog(dataset = "ene")
 
 file <-  get_catalog(dataset = "ene") %>% 
-  dplyr::slice(1) %>% 
+  filter(version=="2011-08-jas") %>% 
   pull(version)
 ```
 
 ## Getting columns
 
-The `get_columns` function returns the columns for a specific file. We already have the name of one of the available versions. 
+The `get_columns()` function returns the columns for a specific file. It requires two mandatory parameters, namely `dataset` and `version` to fetch the specific column names.
+We already have the name of one of the available versions of the *ene* survey. 
 
 ```{r}
-get_columns("ene", file)
+get_columns(dataset = "ene", version = file)
 ```
 
 
 ## Downloading data
 
-To download a specific dataset we can use the `get_data` function. For instance, we can get the ENE data for a specific quarter or the 2020 ENUSC dataset.   
-```{r}
-first_rows1 <-  get_data(dataset = "ene", version = file) %>% 
-  slice(1:5)
+The `get_data()` function allows us to bring a dataset from a specific survey. The function has four parameters: `dataset`, `version`, `col_list` and `save_where`.
+For instance, we can get the *ene* data for a specific quarter. If the `version` parameter is not specified then it will return the newest version of the survey. 
 
-first_rows2 <-  get_data(dataset = "enusc", version = "2020" ) %>% 
-  slice(1:5)
+```{r, message=FALSE,warning=FALSE,results='hide'}
+# Get dataset of a specific version
+ene <-  get_data(dataset = "ene", version = file) 
 
-first_rows2
+# Get newest version
+ene2 <- get_data(dataset = "ene") 
+```
+```{r, eval=TRUE}
+ene %>% head(3)
+```
+
+With `col_list` we can select some of the variables in the dataset, if not specified it will select all columns. Meanwhile, `save_where` allows us to define where the dataset will be stored. There are four options:  
+
+* **no**: store in the memory of R enviroment. If the size overloads the ram memory it will show a warning and a prompt recommending to save the data in the working directory and asking if the user wants to proceed.  
+* **local**: store in a directory called *data/* in the working directory, but not in the R enviroment.
+* **both**: store in both parts.
+* **no_warning**: under the users responsibility, it will not show the warning and the datasets will be stored in R enviroment.
+
+```{r, message=FALSE,warning=FALSE,results='hide'}
+ene_small <- get_data(dataset = "ene", version = file, col_list = c("ano_trimestre","mes_central","fact_cal","cae_especifico"), save_where = "no")
 ```
 ```{r}
-get_catalog("ene")
+ene_small %>% head()
 ```
 
-**Important note: Due to the project being in a testing phase, the API only returns the first 300 rows of each file. This is done to facilitate testing.** 
+**Important note:** we highly recommend against downloading the entire dataset. Instead, consider selecting specific columns, as the full download could consume a substantial amount of time and storage space. 
 
-The `get_many_data` function allows to download more than one dataset at the same time. In this example we are getting all the versions between August (2022-08-jas) and October (2022-10-son) 2022. 
+The `get_many_data()` function allows to download more than one dataset at the same time. In this example we are getting the versions between december-january-february (2022-01-def) and february-march-april (2022-03-fma) 2022 quarters of the *ene* survey.   
+The function has six parameters: `dataset`, `from`, `to`, `col_list`, `save_where`, `memory_warning_limit`.
+The `from`and `to` arguments are mandatory and are used to filter by the selected periods or versions of a particular survey.
+The `memory_warning_limit` argument allows you to set the memory limit that triggers the warning when downloading to R memory.  
+The output is a list of *dataframes*. In this case we can see the *df_list* contains 3 elements.
 
-The output is a list of *dataframes*. In this case we can see the *df_list* contains 3 elements.    
-
+```{r, message=FALSE,warning=FALSE,results='hide'}
+df_list <-  get_many_data(dataset = "ene", from = "2022-01-def", to = "2022-03-fma" )
+```
 ```{r}
-df_list <-  get_many_data(dataset = "ene", from = "2022-08-jas", to = "2022-10-son" )
 length(df_list)
-
-
 ```
+
 We can convert the three *dataframes* into one table
 
 ```{r}
-ene_table <-  df_list %>% 
+ene_table <-  df_list %>%
   bind_rows()
-  
 ```
-**Important note:** different versions of the same dataset are not always compatible, so, the `bind_rows()` method won't always work. Be always careful when joining multiple versions and check their structure before proceeding. 
+**Important note:** different versions of the same dataset are not always compatible, so, the `bind_rows()` method won't always work. Be always careful when joining multiple versions and check their structure before proceeding.
 
 # API Tutorial
 
-The R package works with a service developed in Python, whose documentation can be found 
+The R package works with a service developed in Python, whose documentation can be found
 [here](http://10.90.10.46:7000/docs).Below are the endpoints and a link to the documentation.
 
 **Important note:** when interacting directly with the API, it is important to be aware that due to data format restrictions, any cells that were originally NA will be displayed as empty text.
 
 
-## Returns available datasets and a summary of number of rows and columns per dataset
+## Returns available datasets
+
+A *.json* file is entered containing the survey, version and optionally a list of columns. If a list of columns is not entered, the API returns a table with all the columns of the survey. The final output is also in a *.json* format.  
+The next example shows how to get the dataset of the *enusc* 2017 survey selecting the columns "P1_1_1" and "P3_1_1" in a *.json* format.
 
 ```{r, eval=FALSE}
-http://10.90.10.46:7000/datasets
-```
+{
+  "dataset": "enusc",
+  "version": "2017",
+  "col_list": [
+    "P1_1_1",
+    "P3_1_1"
+  ]
+}
+````
 
-## Returns datasets for a specific product
+The endpoint is the following:
 
 ```{r, eval=FALSE}
-http://10.90.10.46:7000/datasets/{dataset}
+http://10.90.10.46:7000/data
 ```
 
 ## Returns the columns of a file
 
-```{r, eval=FALSE}
-http://10.90.10.46:7000/colnames/{dataset}/{version}
+The user has to enter the dataset and version, then the API will return a vector containing the columns of the selected dataset.
 
-```
-
-## Returns data from a file (300 rows at the moment)
+The endpoint is the following:
 
 ```{r, eval=FALSE}
-http://10.90.10.46:7000/data/{dataset}/{version}
+http://10.90.10.46:7000/colnames
 ```
 
+## Returns summary data
 
+Delivers metadata of the available tables. Optionally, you can enter a survey to filter using the parameter *dataset_filter*, obtaining the metadata of the tables associated with that survey in *.json* format. Data includes dataset name, dataset version, number of rows, number of columns and file size in bytes.
+
+The endpoint is the following:
+
+```{r, eval=FALSE}
+http://10.90.10.46:7000/info
+```
 

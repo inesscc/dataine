@@ -4,16 +4,31 @@
 \alias{get_data}
 \title{Download a dataset from the API INE service}
 \usage{
-get_data(dataset, version = NULL)
+get_data(
+  dataset,
+  version = NULL,
+  col_list = NULL,
+  save_where = c("no", "local", "both", "no_warning")
+)
 }
 \arguments{
-\item{dataset}{\code{string}. The possible values are "ene", "epf_personas", "epf_gastos", "enusc" or "esi"}
+\item{dataset}{\code{string}. The possible values are "ene", "epf_personas", "epf_gastos", "enusc" or "esi".}
 
-\item{version}{\code{string} by default is the newest version}
+\item{version}{\code{string} by default is the newest version.}
+
+\item{col_list}{\code{character vector} by default is all columns. The possible values can be obtained through the get_columns function.}
+
+\item{save_where}{\code{string} by default is "no", the possible values are "no","local","both","no_warning".}
 }
 \value{
 \code{dataframe}
 }
 \description{
 Download a dataset from the API INE service
+}
+\examples{
+# Get dataset of "ene" survey from september-november-october 2020 quarter and selecting columns
+
+get_data(dataset="ene", version="2022-10-son", col_list=c("region","cae_general","fact_cal"))
+
 }

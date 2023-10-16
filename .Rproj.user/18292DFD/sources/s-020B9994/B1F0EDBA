@@ -1,0 +1,26 @@
+{
+    "id": "B1F0EDBA",
+    "path": "C:/ine/dataine2/R/get_data.R",
+    "project_path": "R/get_data.R",
+    "type": "r_source",
+    "hash": "2349034514",
+    "contents": "",
+    "dirty": false,
+    "created": 1697198638739.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "326,16",
+        "scrollLine": "317"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1697465503,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1697465503810,
+    "read_only": false,
+    "read_only_alternatives": []
+}

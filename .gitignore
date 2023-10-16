@@ -2,10 +2,3 @@
 .Rhistory
 .RData
 .Ruserdata
-.gitignore
-inst/doc
-data/
-#docs
-#/doc/
-/Meta/
-/doc/

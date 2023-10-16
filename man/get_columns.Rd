@@ -17,3 +17,8 @@ get_columns(dataset, version)
 \description{
 Get columns of a specific dataset
 }
+\examples{
+# Get columns of "enusc" 2017 survey
+get_columns(dataset = "enusc", version = "2017")
+
+}

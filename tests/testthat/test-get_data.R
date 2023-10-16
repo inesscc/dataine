@@ -23,7 +23,7 @@ test_that("get_data returns right error when version doesn't exist", {
 enusc = get_data("enusc", "2020",col_list = c("rph_edad","rph_sexo"))
 
 test_that("testing that data is not saved locally",{
-expect_equal(length(list.files(path = "data/", pattern = "enusc_2020.rds")),0)
+expect_equal(length(list.files(path = "data/", pattern = "enusc_2017.rds")),0)
 })
 
 rm(enusc)
@@ -33,6 +33,7 @@ rm(enusc)
 unlink("data/",recursive = T,force = T)
 
 jue =  get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "disk", col_list = c("sexo","parentesco","curso"))
+
 
 
 # jue = get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "disk", dont_ask_me = T,memory_warning_limit = 10)
@@ -48,7 +49,14 @@ unlink("data", force = T, recursive = T)
 
 unlink("data", force = T, recursive = T)
 
-datos = get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "both",memory_warning_limit = 10, col_list = c("sexo","parentesco","curso"))
+
+
+datos = get_many_data("ene",
+                      from = "2010-02-efm",
+                      to = "2010-03-fma",
+                      save_where = "both",
+                      memory_warning_limit = 10,
+                      col_list = c("sexo","parentesco","curso"))
 
 test_that("Expect to create a file in working directory",{
   expect_equal(list.files(path = "data/", pattern = "ene_2010-02-efm.rds"),"ene_2010-02-efm.rds")
@@ -81,6 +89,23 @@ unlink("data", force = T, recursive = T)
 # l_ene <- get_many_data(dataset = "ene",from = "2010-02-efm", to = "2010-05-amj",save_where = "disk")
 #
 ## l_ene <- get_many_data(dataset = "ene",from = "2010-02-efm", to = "2010-05-amj",save_where = "both")
+
+
+### testing save local with many data ####
+
+test_that("get_many_data returns the right number of datasets between two points, setting 'save_where' == 'no_warning', for avoid prompt", {
+  expect_equal(length(get_many_data("ene",
+                                    from = "2010-02-efm",
+                                    to = "2010-05-amj",
+                                    save_where = "no",
+                                    col_list = c("mes_central")
+                                    )
+                      ), 4  )
+})
+
+
+#get_many_data("ene", versions = c("2010-02-efm","2010-03-fma","2010-04-mam"))
+
 
 
 ### testing internal resume download ####
@@ -159,6 +184,11 @@ test_that("get_many_data is throwing an error when user inputs an invalid versio
 #   expect_error(get_many_data("ene", version = c("no_existe")), "Some of the versions in your vector are invalid")
 # })
 
+enusc <- get_data("enusc","2017","P1_1_1")
+
+test_that("get_data with one column", {
+  expect_equal(names(enusc), c("P1_1_1"))
+})
 
 
 

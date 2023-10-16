@@ -12,8 +12,20 @@ get_catalog(
 \item{dataset}{\code{string} name of dataset. The possible values are "full", "ene", "epf_personas", "epf_gastos", "enusc" or "esi". The default value is "full"}
 }
 \value{
-\code{dataframe}
+\code{dataframe with two columns: survey and version}
+1. Columns
+
+\itemize{
+  \item \code{survey} One of the surveys conducted by INE Chile
+  \item \code{version} Specific version of a survey. It can be year or a quarter
+}
 }
 \description{
 Get catalog of available data
+}
+\examples{
+# Get all datasets and versions available
+get_catalog()
+# Get all versions of a specific dataset
+get_catalog(dataset="enusc")
 }
