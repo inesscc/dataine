@@ -29,13 +29,15 @@ At the moment the API is restricted to the institutional network. Because of tha
 
 ## First steps
 
-At the moment the package can be installed from github using devtools.  
+At the moment the package can be installed from github or gitlab using devtools.  
 
 ```{r, eval=FALSE}
+# From github
 devtools::install_github("inesscc/dataine")
+
+# From gitlab
+devtools::install_gitlab("inesscc/dataine")
 ```
-
-
 
 ## Getting catalog
 
@@ -89,10 +91,10 @@ ene %>% head(3)
 
 With `col_list` we can select some of the variables in the dataset, if not specified it will select all columns. Meanwhile, `save_where` allows us to define where the dataset will be stored. There are four options:  
 
-* **no**: store in the memory of R enviroment. If the size overloads the ram memory it will show a warning and a prompt recommending to save the data in the working directory and asking if the user wants to proceed.  
-* **local**: store in a directory called *data/* in the working directory, but not in the R enviroment.
+* **renviron**: store in the memory of R enviroment. If the size overloads the ram memory it will show a warning and a prompt recommending to save the data in the working directory and asking if the user wants to proceed.  
+* **disk**: store in a directory called *data/* in the working directory, but not in the R enviroment.
 * **both**: store in both parts.
-* **no_warning**: under the users responsibility, it will not show the warning and the datasets will be stored in R enviroment.
+* **no_message**: under the users responsibility, it will not show the warning and the datasets will be stored in R enviroment.
 
 ```{r, message=FALSE,warning=FALSE,results='hide'}
 ene_small <- get_data(dataset = "ene", version = file, col_list = c("ano_trimestre","mes_central","fact_cal","cae_especifico"), save_where = "no")

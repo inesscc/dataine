@@ -84,10 +84,14 @@ make the API available to the general public as soon as possible.</p>
 <div class="section level3">
 <h3 id="first-steps">First steps<a class="anchor" aria-label="anchor" href="#first-steps"></a>
 </h3>
-<p>At the moment the package can be installed from github using
-devtools.</p>
+<p>At the moment the package can be installed from github or gitlab
+using devtools.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"inesscc/dataine"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># From github</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"inesscc/dataine"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># From gitlab</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_gitlab.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"inesscc/dataine"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="getting-catalog">Getting catalog<a class="anchor" aria-label="anchor" href="#getting-catalog"></a>
@@ -281,18 +285,18 @@ dataset, if not specified it will select all columns. Meanwhile,
 stored. There are four options:</p>
 <ul>
 <li>
-<strong>no</strong>: store in the memory of R enviroment. If the
-size overloads the ram memory it will show a warning and a prompt
+<strong>renviron</strong>: store in the memory of R enviroment. If
+the size overloads the ram memory it will show a warning and a prompt
 recommending to save the data in the working directory and asking if the
 user wants to proceed.<br>
 </li>
 <li>
-<strong>local</strong>: store in a directory called <em>data/</em>
-in the working directory, but not in the R enviroment.</li>
+<strong>disk</strong>: store in a directory called <em>data/</em> in
+the working directory, but not in the R enviroment.</li>
 <li>
 <strong>both</strong>: store in both parts.</li>
 <li>
-<strong>no_warning</strong>: under the users responsibility, it will
+<strong>no_message</strong>: under the users responsibility, it will
 not show the warning and the datasets will be stored in R
 enviroment.</li>
 </ul>
