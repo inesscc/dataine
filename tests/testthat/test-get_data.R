@@ -9,7 +9,7 @@ test_that("get_data throws right error", {
 
 
 test_that("get_data returns a data.frame", {
-  expect_equal(sum(class(get_data("enusc", "2020")) == "data.frame"), 1  )
+  expect_equal(sum(class(get_data("enusc", "2020", col_list = c("MODO_FINAL") )) == "data.frame"), 1  )
 })
 
 
@@ -20,7 +20,7 @@ test_that("get_data returns right error when version doesn't exist", {
 })
 
 #### get data no save localy ####
-enusc = get_data("enusc", "2017")
+enusc = get_data("enusc", "2017", col_list = c("Score_Hogar"))
 
 test_that("testing that data is not saved locally",{
 expect_equal(length(list.files(path = "data/", pattern = "enusc_2017.rds")),0)
@@ -49,7 +49,12 @@ unlink("data", force = T, recursive = T)
 
 unlink("data", force = T, recursive = T)
 
-datos = get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "both",memory_warning_limit = 10)
+datos = get_many_data("ene",  from = "2010-02-efm",
+                      to = "2010-03-fma",
+                      save_where = "both",
+                      memory_warning_limit = 10,
+                      col_list = c("categoria_ocupacion")
+                      )
 
 test_that("Expect to create a file in working directory",{
   expect_equal(list.files(path = "data/", pattern = "ene_2010-02-efm.rds"),"ene_2010-02-efm.rds")
@@ -66,7 +71,13 @@ unlink("data", force = T, recursive = T)
 ### no warning
 
 
-datos = get_many_data("ene",  from = "2010-02-efm", to = "2010-03-fma", save_where = "no_warning",memory_warning_limit = 10)
+datos = get_many_data("ene",
+                      from = "2010-02-efm",
+                      to = "2010-03-fma",
+                      save_where = "no_warning",
+                      memory_warning_limit = 10,
+                      col_list = c("categoria_ocupacion")
+                      )
 
 ### Manualy prompt testing save local with many data ####
 
