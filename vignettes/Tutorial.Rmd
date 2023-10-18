@@ -80,7 +80,7 @@ For instance, we can get the *ene* data for a specific quarter. If the `version`
 
 ```{r, message=FALSE,warning=FALSE,results='hide'}
 # Get dataset of a specific version
-ene <-  get_data(dataset = "ene", version = file) 
+ene <-  get_data(dataset = "ene", version = "2010-02-efm" ) 
 
 # Get newest version
 ene2 <- get_data(dataset = "ene") 

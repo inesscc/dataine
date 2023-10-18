@@ -17,6 +17,10 @@
 
 get_data <- function(dataset, version = NULL, col_list = NULL, save_where = c("renviron","disk","both","no_message")) {
 
+  version <- "2010-02-efm"
+  data <- "ene"
+  col_list <- c("activ")
+
   save_where = match.arg(save_where)
 
   match.arg(dataset, c("ene", "epf_personas", "epf_gastos", "enusc", "esi"))
@@ -69,8 +73,16 @@ cap_speed <- config(max_recv_speed_large = 10000)
 rlang::inform(glue("Please wait..."))
 
 
-  df = data$content %>% RcppSimdJson::fparse() %>% RcppSimdJson::fparse()
+  df = data$content %>% RcppSimdJson::fparse() %>%
+    RcppSimdJson::fparse()
 
+
+
+    df = data$content %>%
+      RcppSimdJson::fparse()
+
+    df <- df[[1]] %>%
+      RcppSimdJson::fparse()
   # print advance
 
  # print(glue("download {i} from {n_version}"))
