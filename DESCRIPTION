@@ -20,7 +20,8 @@ Imports:
     glue,
     tibble,
     assertthat,
-    xml2
+    xml2,
+    RcppSimdJson
 Suggests: 
     knitr,
     rmarkdown,
