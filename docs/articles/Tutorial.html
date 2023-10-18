@@ -82,6 +82,18 @@ on INE’s web site.</p>
 Because of that the package works only in this environment. We hope to
 make the API available to the general public as soon as possible.</p>
 <div class="section level3">
+<h3 id="first-steps">First steps<a class="anchor" aria-label="anchor" href="#first-steps"></a>
+</h3>
+<p>At the moment the package can be installed from github or gitlab
+using devtools.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># From github</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"inesscc/dataine"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># From gitlab</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_gitlab.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"inesscc/dataine"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
 <h3 id="getting-catalog">Getting catalog<a class="anchor" aria-label="anchor" href="#getting-catalog"></a>
 </h3>
 <p><code><a href="../reference/get_catalog.html">get_catalog()</a></code> returns a dataframe containing all the
@@ -99,7 +111,7 @@ per dataset (in the <em>n_col</em> and <em>n_row</em> columns,
 respectively). The <em>survey</em> column contains the survey where the
 dataset comes from. The <em>version</em> column indicates the year or
 quarter when the dataset was collected.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_catalog.html">get_catalog</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 194 × 5</span></span></span>
 <span><span class="co">#&gt;    survey version     n_row n_col file_size_MB</span></span>
@@ -120,7 +132,7 @@ specific survey. In this example we are using <em>ene</em>, which
 returns all the available versions for that survey. We will store the
 file version for the june-august-september quarter of 2011 (2011-08-jas)
 in a variable called <code>file</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_catalog.html">get_catalog</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 153 × 5</span></span></span>
 <span><span class="co">#&gt;    survey version     n_row n_col file_size_MB</span></span>
@@ -149,7 +161,7 @@ specific file. It requires two mandatory parameters, namely
 <code>dataset</code> and <code>version</code> to fetch the specific
 column names. We already have the name of one of the available versions
 of the <em>ene</em> survey.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_columns.html">get_columns</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, version <span class="op">=</span> <span class="va">file</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   [1] "ano_trimestre"       "mes_central"         "ano_encuesta"       </span></span>
 <span><span class="co">#&gt;   [4] "mes_encuesta"        "region"              "provincia"          </span></span>
@@ -207,13 +219,13 @@ from a specific survey. The function has four parameters:
 <code>save_where</code>. For instance, we can get the <em>ene</em> data
 for a specific quarter. If the <code>version</code> parameter is not
 specified then it will return the newest version of the survey.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get dataset of a specific version</span></span>
 <span><span class="va">ene</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, version <span class="op">=</span> <span class="va">file</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="co"># Get newest version</span></span>
 <span><span class="va">ene2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span><span class="op">)</span> </span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ene</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   index ano_trimestre mes_central ano_encuesta mes_encuesta region provincia</span></span>
 <span><span class="co">#&gt; 1     0          2011           8         2011            9      8        82</span></span>
@@ -273,24 +285,24 @@ dataset, if not specified it will select all columns. Meanwhile,
 stored. There are four options:</p>
 <ul>
 <li>
-<strong>no</strong>: store in the memory of R enviroment. If the
-size overloads the ram memory it will show a warning and a prompt
+<strong>renviron</strong>: store in the memory of R enviroment. If
+the size overloads the ram memory it will show a warning and a prompt
 recommending to save the data in the working directory and asking if the
 user wants to proceed.<br>
 </li>
 <li>
-<strong>local</strong>: store in a directory called <em>data/</em>
-in the working directory, but not in the R enviroment.</li>
+<strong>disk</strong>: store in a directory called <em>data/</em> in
+the working directory, but not in the R enviroment.</li>
 <li>
 <strong>both</strong>: store in both parts.</li>
 <li>
-<strong>no_warning</strong>: under the users responsibility, it will
+<strong>no_message</strong>: under the users responsibility, it will
 not show the warning and the datasets will be stored in R
 enviroment.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, version <span class="op">=</span> <span class="va">file</span>, col_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ano_trimestre"</span>,<span class="st">"mes_central"</span>,<span class="st">"fact_cal"</span>,<span class="st">"cae_especifico"</span><span class="op">)</span>, save_where <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, version <span class="op">=</span> <span class="va">file</span>, col_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ano_trimestre"</span>,<span class="st">"mes_central"</span>,<span class="st">"fact_cal"</span>,<span class="st">"cae_especifico"</span><span class="op">)</span>, save_where <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           fact_cal ano_trimestre mes_central cae_especifico</span></span>
 <span><span class="co">#&gt; 1 86,8648910010612          2011           8              1</span></span>
@@ -318,13 +330,13 @@ the memory limit that triggers the warning when downloading to R
 memory.<br>
 The output is a list of <em>dataframes</em>. In this case we can see the
 <em>df_list</em> contains 3 elements.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df_list</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/get_many_data.html">get_many_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, from <span class="op">=</span> <span class="st">"2022-01-def"</span>, to <span class="op">=</span> <span class="st">"2022-03-fma"</span> <span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df_list</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/get_many_data.html">get_many_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, from <span class="op">=</span> <span class="st">"2022-01-def"</span>, to <span class="op">=</span> <span class="st">"2022-03-fma"</span> <span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">df_list</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 <p>We can convert the three <em>dataframes</em> into one table</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ene_table</span> <span class="op">&lt;-</span>  <span class="va">df_list</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">bind_rows</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Important note:</strong> different versions of the same
@@ -352,16 +364,16 @@ is also in a <em>.json</em> format.<br>
 The next example shows how to get the dataset of the <em>enusc</em> 2017
 survey selecting the columns “P1_1_1” and “P3_1_1” in a <em>.json</em>
 format.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dataset"</span><span class="sc">:</span> <span class="st">"enusc"</span>,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"version"</span><span class="sc">:</span> <span class="st">"2017"</span>,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"col_list"</span><span class="sc">:</span> [</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"P1_1_1"</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"P3_1_1"</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dataset"</span><span class="sc">:</span> <span class="st">"enusc"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"version"</span><span class="sc">:</span> <span class="st">"2017"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"col_list"</span><span class="sc">:</span> [</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"P1_1_1"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"P3_1_1"</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>data</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>data</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="returns-the-columns-of-a-file">Returns the columns of a file<a class="anchor" aria-label="anchor" href="#returns-the-columns-of-a-file"></a>
@@ -369,7 +381,7 @@ format.</p>
 <p>The user has to enter the dataset and version, then the API will
 return a vector containing the columns of the selected dataset.</p>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>colnames</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>colnames</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="returns-summary-data">Returns summary data<a class="anchor" aria-label="anchor" href="#returns-summary-data"></a>
@@ -380,7 +392,7 @@ obtaining the metadata of the tables associated with that survey in
 <em>.json</em> format. Data includes dataset name, dataset version,
 number of rows, number of columns and file size in bytes.</p>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>info</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>info</span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

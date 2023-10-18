@@ -8,7 +8,7 @@ get_data(
   dataset,
   version = NULL,
   col_list = NULL,
-  save_where = c("no", "local", "both", "no_warning")
+  save_where = c("renviron", "disk", "both", "no_message")
 )
 }
 \arguments{
@@ -18,7 +18,7 @@ get_data(
 
 \item{col_list}{\code{character vector} by default is all columns. The possible values can be obtained through the get_columns function.}
 
-\item{save_where}{\code{string} by default is "no", the possible values are "no","local","both","no_warning".}
+\item{save_where}{\code{string} by default is "renviron", the possible values are "renviron","disk","both","no_message".}
 }
 \value{
 \code{dataframe}
