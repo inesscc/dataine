@@ -37,6 +37,15 @@ devtools::install_github("inesscc/dataine")
 
 # From gitlab
 devtools::install_gitlab("inesscc/dataine")
+
+```
+
+Then we must call the package, make sure the name is "inedata".
+
+```{r, eval=FALSE}
+
+library(inedata)
+
 ```
 
 ## Getting catalog
@@ -97,7 +106,7 @@ With `col_list` we can select some of the variables in the dataset, if not speci
 * **no_message**: under the users responsibility, it will not show the warning and the datasets will be stored in R enviroment.
 
 ```{r, message=FALSE,warning=FALSE,results='hide'}
-ene_small <- get_data(dataset = "ene", version = file, col_list = c("ano_trimestre","mes_central","fact_cal","cae_especifico"), save_where = "no")
+ene_small <- get_data(dataset = "ene", version = file, col_list = c("ano_trimestre","mes_central","fact_cal","cae_especifico"), save_where = "no_message")
 ```
 ```{r}
 ene_small %>% head()
