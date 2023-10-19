@@ -17,9 +17,6 @@
 
 get_data <- function(dataset, version = NULL, col_list = NULL, save_where = c("renviron","disk","both","no_message")) {
 
-  version <- "2010-02-efm"
-  data <- "ene"
-  col_list <- c("activ")
 
   save_where = match.arg(save_where)
 

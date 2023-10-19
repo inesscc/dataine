@@ -20,7 +20,7 @@ test_that("get_data returns right error when version doesn't exist", {
 })
 
 #### get data no save localy ####
-enusc = get_data("enusc", "2020",col_list = c("rph_edad","rph_sexo"))
+enusc = get_data("enusc", "2020", col_list = c("rph_edad","rph_sexo"))
 
 test_that("testing that data is not saved locally",{
 expect_equal(length(list.files(path = "data/", pattern = "enusc_2017.rds")),0)
