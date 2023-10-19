@@ -91,7 +91,9 @@ using devtools.</p>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"inesscc/dataine"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># From gitlab</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_gitlab.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"inesscc/dataine"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_gitlab.html" class="external-link">install_gitlab</a></span><span class="op">(</span><span class="st">"inesscc/dataine"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">inedata</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="getting-catalog">Getting catalog<a class="anchor" aria-label="anchor" href="#getting-catalog"></a>
@@ -301,7 +303,7 @@ not show the warning and the datasets will be stored in R
 enviroment.</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, version <span class="op">=</span> <span class="va">file</span>, col_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ano_trimestre"</span>,<span class="st">"mes_central"</span>,<span class="st">"fact_cal"</span>,<span class="st">"cae_especifico"</span><span class="op">)</span>, save_where <span class="op">=</span> <span class="st">"no"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, version <span class="op">=</span> <span class="va">file</span>, col_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ano_trimestre"</span>,<span class="st">"mes_central"</span>,<span class="st">"fact_cal"</span>,<span class="st">"cae_especifico"</span><span class="op">)</span>, save_where <span class="op">=</span> <span class="st">"renviron"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   ano_trimestre mes_central         fact_cal cae_especifico</span></span>
