@@ -17,6 +17,7 @@
 
 get_data <- function(dataset, version = NULL, col_list = NULL, save_where = c("renviron","disk","both","no_message")) {
 
+
   save_where = match.arg(save_where)
 
   match.arg(dataset, c("ene", "epf_personas", "epf_gastos", "enusc", "esi"))
@@ -68,17 +69,19 @@ cap_speed <- config(max_recv_speed_large = 10000)
 
 rlang::inform(glue("Please wait..."))
 
+    df = data$content %>%
+      RcppSimdJson::fparse()
 
-  df = data$content %>% RcppSimdJson::fparse() %>% RcppSimdJson::fparse()
-
-  # print advance
+    df <- df[[1]] %>%
+      RcppSimdJson::fparse()
 
  # print(glue("download {i} from {n_version}"))
 
 ### if save local
   if(any(save_where %in% c("disk","both"))){
 
-  save_data  =  data$content %>% RcppSimdJson::fparse() %>% RcppSimdJson::fparse()
+  save_data  =  data$content %>% RcppSimdJson::fparse()
+  save_data <- save_data[[1]] %>%  RcppSimdJson::fparse()
 
   if(dir.exists("data/")==F){
     dir.create("data/")

@@ -1,7 +1,7 @@
 # ip <- "http://143.198.79.143:5003"
 # ip <- "http://127.0.0.1:8000"
 ip <- "http://10.90.10.46:7000"
-# ip <- "http://localhost:7000"
+#ip <- "http://localhost:7000"
 #ip <- "http://localhost:90"
 
 #' Get columns of a specific dataset
