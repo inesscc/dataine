@@ -19,6 +19,8 @@ knitr::opts_chunk$set(
 ```{r setup, include = FALSE}
 library(inedata)
 library(dplyr)
+library(ggplot2)
+library(purrr)
 ```
 
 # Package Tutorial
@@ -128,6 +130,72 @@ ene_table <-  df_list %>%
 ```
 **Important note:** different versions of the same dataset are not always compatible, so, the `bind_rows()` method won't always work. Be always careful when joining multiple versions and check their structure before proceeding.
 
+## Practical example
+
+Let's suppose that we are interested in the evolution of the unemployment rate over the last few quarters. In this case, we can use the `get_many_data()` function, as shown in the following example:
+
+```{r, message=FALSE,warning=FALSE,results='hide'}
+ene_serie <-  get_many_data(dataset = "ene", from = "2022-09-aso", to = "2023-07-jja", col_list = c("ano_trimestre", "mes_central", "cae_especifico", "fact_cal"), memory_warning_limit = 10000)
+```
+
+Next, we can calculate the unemployment rate and create a graph for it.
+
+```{r, warning=FALSE}
+ene_serie %>% 
+  map(., . %>% mutate(fact_cal = as.numeric(gsub(",", ".", fact_cal)),
+                      work_force = ifelse(cae_especifico %in% 1:9, 1, 0),
+                      unemployed = ifelse(cae_especifico %in% 8:9, 1, 0)) %>%
+        filter(work_force == 1) %>% 
+        group_by(ano_trimestre, mes_central) %>% 
+        summarise(work_force = round(sum(work_force*fact_cal), 0),
+                  unemployed = round(sum(unemployed*fact_cal), 0)) %>% 
+        mutate(unemployment_rate = round((unemployed/work_force)*100, 1)) 
+  ) %>% 
+  bind_rows() %>% 
+  mutate(ano_trimestre=as.factor(ano_trimestre),
+         periodo = case_when(mes_central==1 ~ "dic-feb",
+                             mes_central==2 ~ "ene-mar",
+                             mes_central==3 ~ "feb-abr",
+                             mes_central==4 ~ "mar-may",
+                             mes_central==5 ~ "abr-jun",
+                             mes_central==6 ~ "may-jul",
+                             mes_central==7 ~ "jun-ago",
+                             mes_central==8 ~ "jul-sep",
+                             mes_central==9 ~ "ago-oct",
+                             mes_central==10 ~ "sep-nov",
+                             mes_central==11 ~ "oct-dic",
+                             mes_central==12 ~ "nov-ene"),
+         periodo = factor(periodo,  levels=c("dic-feb","ene-mar","feb-abr","mar-may","abr-jun","may-jul",
+                                                "jun-ago","jul-sep","ago-oct",
+                                             "sep-nov","oct-dic","nov-ene"))) %>% 
+  ggplot() +
+  aes(x = interaction(periodo, ano_trimestre), y = round(unemployment_rate,1), group = 1, color = 1) +
+  geom_line(size = 1.5, color = "red") +
+  scale_y_continuous(limits = c(0, 10),
+                     n.breaks = 10) +
+  labs(y = "Unemployment rate (%)") +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 90, 
+                                   vjust = 0.5,
+                                   size = 15),
+        axis.text.y = element_text(size = 15),
+        panel.grid = element_blank(),
+        panel.grid.major.y = element_line(color = "gray60", 
+                                          size = 0.5, 
+                                          linetype = "longdash"),
+        panel.background = element_rect(fill="#ffffff", 
+                                        color="#ffffff"),
+        plot.margin = unit(c(1,1,1,1), "cm"),
+        axis.title.y = element_text(size = 15,
+                                    face = "bold",
+                                    margin = unit(c(0,0,0,0), "cm")),
+        axis.title.y.right = element_text(margin = unit(c(0,0,0,0), "cm"),
+                                          size = 15,
+                                          face = "bold",
+                                          angle = 90),
+        axis.line = element_line(colour = "grey60")) 
+```
+
 # API Tutorial
 
 The R package works with a service developed in Python, whose documentation can be found
@@ -150,7 +218,7 @@ The next example shows how to get the dataset of the *enusc* 2017 survey selecti
     "P3_1_1"
   ]
 }
-````
+```
 
 The endpoint is the following:
 

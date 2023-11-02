@@ -8,8 +8,8 @@
 <meta name="description" content="inedata">
 <title>Testing • inedata</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Testing">
 <meta property="og:description" content="inedata">
@@ -306,13 +306,13 @@ enviroment.</li>
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, version <span class="op">=</span> <span class="va">file</span>, col_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ano_trimestre"</span>,<span class="st">"mes_central"</span>,<span class="st">"fact_cal"</span>,<span class="st">"cae_especifico"</span><span class="op">)</span>, save_where <span class="op">=</span> <span class="st">"renviron"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   ano_trimestre mes_central         fact_cal cae_especifico</span></span>
-<span><span class="co">#&gt; 1          2011           8 86,8648910010612              1</span></span>
-<span><span class="co">#&gt; 2          2011           8 112,560637427099              1</span></span>
-<span><span class="co">#&gt; 3          2011           8 103,559180372675              1</span></span>
-<span><span class="co">#&gt; 4          2011           8 87,3907172436076              1</span></span>
-<span><span class="co">#&gt; 5          2011           8  135,46894912875              1</span></span>
-<span><span class="co">#&gt; 6          2011           8 119,935658002151             13</span></span></code></pre></div>
+<span><span class="co">#&gt;   ano_trimestre cae_especifico         fact_cal mes_central</span></span>
+<span><span class="co">#&gt; 1          2011              1 86,8648910010612           8</span></span>
+<span><span class="co">#&gt; 2          2011              1 112,560637427099           8</span></span>
+<span><span class="co">#&gt; 3          2011              1 103,559180372675           8</span></span>
+<span><span class="co">#&gt; 4          2011              1 87,3907172436076           8</span></span>
+<span><span class="co">#&gt; 5          2011              1  135,46894912875           8</span></span>
+<span><span class="co">#&gt; 6          2011             13 119,935658002151           8</span></span></code></pre></div>
 <p><strong>Important note:</strong> we highly recommend against
 downloading the entire dataset. Instead, consider selecting specific
 columns, as the full download could consume a substantial amount of time
@@ -346,6 +346,73 @@ dataset are not always compatible, so, the <code>bind_rows()</code>
 method won’t always work. Be always careful when joining multiple
 versions and check their structure before proceeding.</p>
 </div>
+<div class="section level3">
+<h3 id="practical-example">Practical example<a class="anchor" aria-label="anchor" href="#practical-example"></a>
+</h3>
+<p>Let’s suppose that we are interested in the evolution of the
+unemployment rate over the last few quarters. In this case, we can use
+the <code><a href="../reference/get_many_data.html">get_many_data()</a></code> function, as shown in the following
+example:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ene_serie</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/get_many_data.html">get_many_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, from <span class="op">=</span> <span class="st">"2022-09-aso"</span>, to <span class="op">=</span> <span class="st">"2023-07-jja"</span>, col_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ano_trimestre"</span>, <span class="st">"mes_central"</span>, <span class="st">"cae_especifico"</span>, <span class="st">"fact_cal"</span><span class="op">)</span>, memory_warning_limit <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span></code></pre></div>
+<p>Next, we can calculate the unemployment rate and create a graph for
+it.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ene_serie</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">map</span><span class="op">(</span><span class="va">.</span>, <span class="va">.</span> <span class="op">%&gt;%</span> <span class="fu">mutate</span><span class="op">(</span>fact_cal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">","</span>, <span class="st">"."</span>, <span class="va">fact_cal</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                      work_force <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">cae_especifico</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>                      unemployed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">cae_especifico</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fl">8</span><span class="op">:</span><span class="fl">9</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">work_force</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>        <span class="fu">group_by</span><span class="op">(</span><span class="va">ano_trimestre</span>, <span class="va">mes_central</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>        <span class="fu">summarise</span><span class="op">(</span>work_force <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">work_force</span><span class="op">*</span><span class="va">fact_cal</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>                  unemployed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">unemployed</span><span class="op">*</span><span class="va">fact_cal</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>        <span class="fu">mutate</span><span class="op">(</span>unemployment_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="op">(</span><span class="va">unemployed</span><span class="op">/</span><span class="va">work_force</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> </span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">bind_rows</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>ano_trimestre<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">ano_trimestre</span><span class="op">)</span>,</span>
+<span>         periodo <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span><span class="va">mes_central</span><span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="st">"dic-feb"</span>,</span>
+<span>                             <span class="va">mes_central</span><span class="op">==</span><span class="fl">2</span> <span class="op">~</span> <span class="st">"ene-mar"</span>,</span>
+<span>                             <span class="va">mes_central</span><span class="op">==</span><span class="fl">3</span> <span class="op">~</span> <span class="st">"feb-abr"</span>,</span>
+<span>                             <span class="va">mes_central</span><span class="op">==</span><span class="fl">4</span> <span class="op">~</span> <span class="st">"mar-may"</span>,</span>
+<span>                             <span class="va">mes_central</span><span class="op">==</span><span class="fl">5</span> <span class="op">~</span> <span class="st">"abr-jun"</span>,</span>
+<span>                             <span class="va">mes_central</span><span class="op">==</span><span class="fl">6</span> <span class="op">~</span> <span class="st">"may-jul"</span>,</span>
+<span>                             <span class="va">mes_central</span><span class="op">==</span><span class="fl">7</span> <span class="op">~</span> <span class="st">"jun-ago"</span>,</span>
+<span>                             <span class="va">mes_central</span><span class="op">==</span><span class="fl">8</span> <span class="op">~</span> <span class="st">"jul-sep"</span>,</span>
+<span>                             <span class="va">mes_central</span><span class="op">==</span><span class="fl">9</span> <span class="op">~</span> <span class="st">"ago-oct"</span>,</span>
+<span>                             <span class="va">mes_central</span><span class="op">==</span><span class="fl">10</span> <span class="op">~</span> <span class="st">"sep-nov"</span>,</span>
+<span>                             <span class="va">mes_central</span><span class="op">==</span><span class="fl">11</span> <span class="op">~</span> <span class="st">"oct-dic"</span>,</span>
+<span>                             <span class="va">mes_central</span><span class="op">==</span><span class="fl">12</span> <span class="op">~</span> <span class="st">"nov-ene"</span><span class="op">)</span>,</span>
+<span>         periodo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">periodo</span>,  levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dic-feb"</span>,<span class="st">"ene-mar"</span>,<span class="st">"feb-abr"</span>,<span class="st">"mar-may"</span>,<span class="st">"abr-jun"</span>,<span class="st">"may-jul"</span>,</span>
+<span>                                                <span class="st">"jun-ago"</span>,<span class="st">"jul-sep"</span>,<span class="st">"ago-oct"</span>,</span>
+<span>                                             <span class="st">"sep-nov"</span>,<span class="st">"oct-dic"</span>,<span class="st">"nov-ene"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">periodo</span>, <span class="va">ano_trimestre</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">unemployment_rate</span>,<span class="fl">1</span><span class="op">)</span>, group <span class="op">=</span> <span class="fl">1</span>, color <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1.5</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>                     n.breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Unemployment rate (%)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span>axis.title.x <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, </span>
+<span>                                   vjust <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>                                   size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>,</span>
+<span>        axis.text.y <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>,</span>
+<span>        panel.grid <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        panel.grid.major.y <span class="op">=</span> <span class="fu">element_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"gray60"</span>, </span>
+<span>                                          size <span class="op">=</span> <span class="fl">0.5</span>, </span>
+<span>                                          linetype <span class="op">=</span> <span class="st">"longdash"</span><span class="op">)</span>,</span>
+<span>        panel.background <span class="op">=</span> <span class="fu">element_rect</span><span class="op">(</span>fill<span class="op">=</span><span class="st">"#ffffff"</span>, </span>
+<span>                                        color<span class="op">=</span><span class="st">"#ffffff"</span><span class="op">)</span>,</span>
+<span>        plot.margin <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span>,</span>
+<span>        axis.title.y <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">15</span>,</span>
+<span>                                    face <span class="op">=</span> <span class="st">"bold"</span>,</span>
+<span>                                    margin <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        axis.title.y.right <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>margin <span class="op">=</span> <span class="fu">unit</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span>,</span>
+<span>                                          size <span class="op">=</span> <span class="fl">15</span>,</span>
+<span>                                          face <span class="op">=</span> <span class="st">"bold"</span>,</span>
+<span>                                          angle <span class="op">=</span> <span class="fl">90</span><span class="op">)</span>,</span>
+<span>        axis.line <span class="op">=</span> <span class="fu">element_line</span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"grey60"</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<p><img src="Tutorial_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="api-tutorial">API Tutorial<a class="anchor" aria-label="anchor" href="#api-tutorial"></a>
@@ -366,16 +433,16 @@ is also in a <em>.json</em> format.<br>
 The next example shows how to get the dataset of the <em>enusc</em> 2017
 survey selecting the columns “P1_1_1” and “P3_1_1” in a <em>.json</em>
 format.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>{</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="st">"dataset"</span><span class="sc">:</span> <span class="st">"enusc"</span>,</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="st">"version"</span><span class="sc">:</span> <span class="st">"2017"</span>,</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="st">"col_list"</span><span class="sc">:</span> [</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>    <span class="st">"P1_1_1"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>    <span class="st">"P3_1_1"</span></span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>  ]</span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dataset"</span><span class="sc">:</span> <span class="st">"enusc"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"version"</span><span class="sc">:</span> <span class="st">"2017"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"col_list"</span><span class="sc">:</span> [</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"P1_1_1"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"P3_1_1"</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>data</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>data</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="returns-the-columns-of-a-file">Returns the columns of a file<a class="anchor" aria-label="anchor" href="#returns-the-columns-of-a-file"></a>
@@ -383,7 +450,7 @@ format.</p>
 <p>The user has to enter the dataset and version, then the API will
 return a vector containing the columns of the selected dataset.</p>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>colnames</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>colnames</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="returns-summary-data">Returns summary data<a class="anchor" aria-label="anchor" href="#returns-summary-data"></a>
@@ -394,7 +461,7 @@ obtaining the metadata of the tables associated with that survey in
 <em>.json</em> format. Data includes dataset name, dataset version,
 number of rows, number of columns and file size in bytes.</p>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>info</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>info</span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
