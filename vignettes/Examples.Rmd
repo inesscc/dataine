@@ -101,11 +101,13 @@ category_serie <- ene_serie %>%
   map_df(., . %>% 
            mutate(fact_cal = as.numeric(gsub(",", ".", fact_cal)),
                   employed = if_else(cae_especifico %in% 1:7, 1, 0),
-                  ocupational_category = ifelse(categoria_ocupacion==1, "Employers",
-                                                ifelse(categoria_ocupacion==2, "Own-account workers",
-                                                       ifelse(categoria_ocupacion==3, "Private wage earners",
-                                                              ifelse(categoria_ocupacion==4, "Public wage earners",
-                                                                     ifelse(categoria_ocupacion %in% 5:6, "Domestic workers", "Unpaid family workers")))))) %>%   
+                  ocupational_category =  case_when(categoria_ocupacion==1 ~ "Employers",
+                     categoria_ocupacion==2 ~ "Own-account workers",
+                     categoria_ocupacion==3 ~ "Private wage earners",
+                     categoria_ocupacion==4 ~ "Public wage earners",
+                     categoria_ocupacion %in% 5:6 ~ "Domestic workers",
+                     TRUE ~ "Unpaid family workers"
+                     )) %>% 
            filter(employed == 1) %>% 
            group_by(ano_trimestre, mes_central, ocupational_category) %>% 
            summarise(employed = round(sum(employed*fact_cal), 0))) %>% 
