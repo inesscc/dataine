@@ -19,6 +19,8 @@ knitr::opts_chunk$set(
 ```{r setup, include = FALSE}
 library(inedata)
 library(dplyr)
+library(ggplot2)
+library(purrr)
 ```
 
 # Package Tutorial
@@ -150,7 +152,7 @@ The next example shows how to get the dataset of the *enusc* 2017 survey selecti
     "P3_1_1"
   ]
 }
-````
+```
 
 The endpoint is the following:
 
