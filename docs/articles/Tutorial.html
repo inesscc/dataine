@@ -352,7 +352,7 @@ versions and check their structure before proceeding.</p>
 <h2 id="api-tutorial">API Tutorial<a class="anchor" aria-label="anchor" href="#api-tutorial"></a>
 </h2>
 <p>The R package works with a service developed in Python, whose
-documentation can be found <a href="http://10.90.10.46:7000/docs" class="external-link">here</a>.Below are the endpoints and
+documentation can be found <a href="http://192.168.1.4:2000/docs" class="external-link">here</a>.Below are the endpoints and
 a link to the documentation.</p>
 <p><strong>Important note:</strong> when interacting directly with the
 API, it is important to be aware that due to data format restrictions,
@@ -376,7 +376,7 @@ format.</p>
 <span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>  ]</span>
 <span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>}</span></code></pre></div>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>data</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.4</span><span class="sc">:</span><span class="dv">2000</span><span class="sc">/</span>data</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="returns-the-columns-of-a-file">Returns the columns of a file<a class="anchor" aria-label="anchor" href="#returns-the-columns-of-a-file"></a>
@@ -384,7 +384,7 @@ format.</p>
 <p>The user has to enter the dataset and version, then the API will
 return a vector containing the columns of the selected dataset.</p>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>colnames</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.4</span><span class="sc">:</span><span class="dv">2000</span><span class="sc">/</span>colnames</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="returns-summary-data">Returns summary data<a class="anchor" aria-label="anchor" href="#returns-summary-data"></a>
@@ -395,7 +395,7 @@ obtaining the metadata of the tables associated with that survey in
 <em>.json</em> format. Data includes dataset name, dataset version,
 number of rows, number of columns and file size in bytes.</p>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">10.46</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>info</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.4</span><span class="sc">:</span><span class="dv">2000</span><span class="sc">/</span>info</span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
