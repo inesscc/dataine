@@ -116,7 +116,7 @@ dataset comes from. The <em>version</em> column indicates the year or
 quarter when the dataset was collected.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_catalog.html">get_catalog</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 203 × 5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 203 x 5</span></span></span>
 <span><span class="co">#&gt;    survey version      n_row n_col file_size_MB</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ene    2023-07-jja <span style="text-decoration: underline;">102</span>577   173        137. </span></span>
@@ -129,7 +129,7 @@ quarter when the dataset was collected.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ene    2022-12-nde  <span style="text-decoration: underline;">94</span>042   173        125. </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ene    2022-11-ond  <span style="text-decoration: underline;">93</span>103   173        123. </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ene    2022-10-son  <span style="text-decoration: underline;">92</span>761   174         18.5</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 193 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># i 193 more rows</span></span></span></code></pre></div>
 <p>The <code>dataset</code> parameter retrieves information for a
 specific survey. In this example we are using <em>ene</em>, which
 returns all the available versions for that survey. We will store the
@@ -137,7 +137,7 @@ file version for the june-august-september quarter of 2011 (2011-08-jas)
 in a variable called <code>file</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_catalog.html">get_catalog</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 162 × 5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 162 x 5</span></span></span>
 <span><span class="co">#&gt;    survey version      n_row n_col file_size_MB</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ene    2023-07-jja <span style="text-decoration: underline;">102</span>577   173        137. </span></span>
@@ -150,7 +150,7 @@ in a variable called <code>file</code>.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ene    2022-12-nde  <span style="text-decoration: underline;">94</span>042   173        125. </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ene    2022-11-ond  <span style="text-decoration: underline;">93</span>103   173        123. </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ene    2022-10-son  <span style="text-decoration: underline;">92</span>761   174         18.5</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 152 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># i 152 more rows</span></span></span>
 <span></span>
 <span><span class="va">file</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/get_catalog.html">get_catalog</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">version</span><span class="op">==</span><span class="st">"2011-08-jas"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
@@ -307,13 +307,13 @@ enviroment.</li>
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="st">"ene"</span>, version <span class="op">=</span> <span class="va">file</span>, col_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ano_trimestre"</span>,<span class="st">"mes_central"</span>,<span class="st">"fact_cal"</span>,<span class="st">"cae_especifico"</span><span class="op">)</span>, save_where <span class="op">=</span> <span class="st">"renviron"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ene_small</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   cae_especifico         fact_cal ano_trimestre mes_central</span></span>
-<span><span class="co">#&gt; 1              1 86,8648910010612          2011           8</span></span>
-<span><span class="co">#&gt; 2              1 112,560637427099          2011           8</span></span>
-<span><span class="co">#&gt; 3              1 103,559180372675          2011           8</span></span>
-<span><span class="co">#&gt; 4              1 87,3907172436076          2011           8</span></span>
-<span><span class="co">#&gt; 5              1  135,46894912875          2011           8</span></span>
-<span><span class="co">#&gt; 6             13 119,935658002151          2011           8</span></span></code></pre></div>
+<span><span class="co">#&gt;           fact_cal mes_central ano_trimestre cae_especifico</span></span>
+<span><span class="co">#&gt; 1 86,8648910010612           8          2011              1</span></span>
+<span><span class="co">#&gt; 2 112,560637427099           8          2011              1</span></span>
+<span><span class="co">#&gt; 3 103,559180372675           8          2011              1</span></span>
+<span><span class="co">#&gt; 4 87,3907172436076           8          2011              1</span></span>
+<span><span class="co">#&gt; 5  135,46894912875           8          2011              1</span></span>
+<span><span class="co">#&gt; 6 119,935658002151           8          2011             13</span></span></code></pre></div>
 <p><strong>Important note:</strong> we highly recommend against
 downloading the entire dataset. Instead, consider selecting specific
 columns, as the full download could consume a substantial amount of time
@@ -352,7 +352,7 @@ versions and check their structure before proceeding.</p>
 <h2 id="api-tutorial">API Tutorial<a class="anchor" aria-label="anchor" href="#api-tutorial"></a>
 </h2>
 <p>The R package works with a service developed in Python, whose
-documentation can be found <a href="http://192.168.1.4:2000/docs" class="external-link">here</a>.Below are the endpoints and
+documentation can be found <a href="http://10.90.2.47:7000/docs" class="external-link">here</a>.Below are the endpoints and
 a link to the documentation.</p>
 <p><strong>Important note:</strong> when interacting directly with the
 API, it is important to be aware that due to data format restrictions,
@@ -367,16 +367,16 @@ is also in a <em>.json</em> format.<br>
 The next example shows how to get the dataset of the <em>enusc</em> 2017
 survey selecting the columns “P1_1_1” and “P3_1_1” in a <em>.json</em>
 format.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>{</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="st">"dataset"</span><span class="sc">:</span> <span class="st">"enusc"</span>,</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="st">"version"</span><span class="sc">:</span> <span class="st">"2017"</span>,</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="st">"col_list"</span><span class="sc">:</span> [</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>    <span class="st">"P1_1_1"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>    <span class="st">"P3_1_1"</span></span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>  ]</span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"dataset"</span><span class="sc">:</span> <span class="st">"enusc"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"version"</span><span class="sc">:</span> <span class="st">"2017"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"col_list"</span><span class="sc">:</span> [</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"P1_1_1"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"P3_1_1"</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.4</span><span class="sc">:</span><span class="dv">2000</span><span class="sc">/</span>data</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">2.47</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>data</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="returns-the-columns-of-a-file">Returns the columns of a file<a class="anchor" aria-label="anchor" href="#returns-the-columns-of-a-file"></a>
@@ -384,7 +384,7 @@ format.</p>
 <p>The user has to enter the dataset and version, then the API will
 return a vector containing the columns of the selected dataset.</p>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.4</span><span class="sc">:</span><span class="dv">2000</span><span class="sc">/</span>colnames</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">2.47</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>colnames</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="returns-summary-data">Returns summary data<a class="anchor" aria-label="anchor" href="#returns-summary-data"></a>
@@ -395,7 +395,7 @@ obtaining the metadata of the tables associated with that survey in
 <em>.json</em> format. Data includes dataset name, dataset version,
 number of rows, number of columns and file size in bytes.</p>
 <p>The endpoint is the following:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">192</span>.<span class="dv">168</span>.<span class="fl">1.4</span><span class="sc">:</span><span class="dv">2000</span><span class="sc">/</span>info</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span><span class="dv">10</span>.<span class="dv">90</span>.<span class="fl">2.47</span><span class="sc">:</span><span class="dv">7000</span><span class="sc">/</span>info</span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

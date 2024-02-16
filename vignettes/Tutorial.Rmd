@@ -133,7 +133,7 @@ ene_table <-  df_list %>%
 # API Tutorial
 
 The R package works with a service developed in Python, whose documentation can be found
-[here](http://192.168.1.4:2000/docs).Below are the endpoints and a link to the documentation.
+[here](http://10.90.2.47:7000/docs).Below are the endpoints and a link to the documentation.
 
 **Important note:** when interacting directly with the API, it is important to be aware that due to data format restrictions, any cells that were originally NA will be displayed as empty text.
 
@@ -157,7 +157,7 @@ The next example shows how to get the dataset of the *enusc* 2017 survey selecti
 The endpoint is the following:
 
 ```{r, eval=FALSE}
-http://192.168.1.4:2000/data
+http://10.90.2.47:7000/data
 ```
 
 ## Returns the columns of a file
@@ -167,7 +167,7 @@ The user has to enter the dataset and version, then the API will return a vector
 The endpoint is the following:
 
 ```{r, eval=FALSE}
-http://192.168.1.4:2000/colnames
+http://10.90.2.47:7000/colnames
 ```
 
 ## Returns summary data
@@ -177,6 +177,6 @@ Delivers metadata of the available tables. Optionally, you can enter a survey to
 The endpoint is the following:
 
 ```{r, eval=FALSE}
-http://192.168.1.4:2000/info
+http://10.90.2.47:7000/info
 ```
 

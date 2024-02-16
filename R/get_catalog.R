@@ -22,7 +22,6 @@
 
 get_catalog <- function( dataset = c("full", "ene", "epf_personas", "epf_gastos", "enusc", "esi")) {
 
-
   # check if the dataset is correct
   dataset <- match.arg(dataset)
 
